@@ -1,4 +1,139 @@
-/********** Template CSS **********/
+.course-item {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.course-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+/* Course Preview Modal */
+.course-preview-modal .modal-content {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.course-preview-modal .modal-header {
+    background: linear-gradient(135deg, #fb873f, #f69050);
+    color: white;
+    border-bottom: none;
+}
+
+.course-preview-modal .modal-title {
+    font-weight: 700;
+    font-size: 1.4rem;
+}
+
+.course-preview-modal .modal-body {
+    padding: 25px;
+}
+
+.course-preview-modal .detail-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.course-preview-modal .detail-row:last-child {
+    border-bottom: none;
+}
+
+.course-preview-modal .detail-label {
+    font-weight: 600;
+    color: #181d38;
+    min-width: 120px;
+    font-size: 0.95rem;
+}
+
+.course-preview-modal .detail-value {
+    color: #52565b;
+    font-size: 0.95rem;
+}
+
+.course-preview-modal .rating-stars {
+    color: #ffc107;
+}
+
+.course-preview-modal .course-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.course-preview-modal .badge-free {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.course-preview-modal .badge-paid {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.course-preview-modal .description-text {
+    color: #52565b;
+    line-height: 1.7;
+    margin-top: 8px;
+    font-size: 0.95rem;
+}
+
+.course-preview-modal .modal-footer {
+    border-top: 1px solid #f0f0f0;
+    padding: 15px 25px;
+}
+
+.course-preview-modal .btn-preview-close {
+    background-color: #6c757d;
+    border: none;
+    padding: 8px 25px;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.course-preview-modal .btn-preview-close:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+.course-preview-modal .btn-enroll-preview {
+    background-color: #fb873f;
+    border: none;
+    padding: 8px 25px;
+    border-radius: 25px;
+    font-weight: 500;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.course-preview-modal .btn-enroll-preview:hover {
+    background-color: #e67a35;
+    transform: translateY(-2px);
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .course-preview-modal .modal-dialog {
+        margin: 10px;
+    }
+    
+    .course-preview-modal .detail-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+    
+    .course-preview-modal .detail-label {
+        min-width: auto;
+        font-size: 0.85rem;
+    }
+}
 :root {
     --primary: #f69050;
     --light: #F0FBFC;

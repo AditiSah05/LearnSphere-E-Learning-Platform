@@ -889,7 +889,7 @@
                     <h4 class="text-white mb-3">Subscribe to our Newsletter</h4>
                     <p>Subscribe now and join our growing community of learners committed to lifelong education! </p>
                     <div class="position-relative mx-auto" style="max-width: 400px;">
-                        <form action="#">
+                        <form action="#" id="newsletterForm">
                             <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="email"
                                 placeholder="Your email" required>
                             <button type="submit"
@@ -912,6 +912,61 @@
         </div>
     </div>
     <!-- Footer End -->
+
+
+    <!-- Course Preview Modal -->
+    <div class="modal fade course-preview-modal" id="coursePreviewModal" tabindex="-1" aria-labelledby="coursePreviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="coursePreviewModalLabel">Course Preview</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="detail-row">
+                        <span class="detail-label"><i class="fa fa-book me-2 text-warning"></i>Course Title</span>
+                        <span class="detail-value" id="modalCourseTitle">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label"><i class="fa fa-user me-2 text-warning"></i>Instructor</span>
+                        <span class="detail-value" id="modalInstructor">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label"><i class="fa fa-clock me-2 text-warning"></i>Duration</span>
+                        <span class="detail-value" id="modalDuration">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label"><i class="fa fa-star me-2 text-warning"></i>Rating</span>
+                        <span class="detail-value">
+                            <span class="rating-stars" id="modalRatingStars">-</span>
+                            <span id="modalRatingValue">-</span>
+                        </span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label"><i class="fa fa-tag me-2 text-warning"></i>Price</span>
+                        <span class="detail-value" id="modalPrice">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label"><i class="fa fa-users me-2 text-warning"></i>Enrolled</span>
+                        <span class="detail-value" id="modalLearners">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label"><i class="fa fa-signal me-2 text-warning"></i>Level</span>
+                        <span class="detail-value" id="modalLevel">-</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label"><i class="fa fa-align-left me-2 text-warning"></i>Description</span>
+                        <span class="detail-value description-text" id="modalDescription">-</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-preview-close" data-bs-dismiss="modal">Close</button>
+                    <a href="login.html" class="btn btn-enroll-preview">Enroll Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
