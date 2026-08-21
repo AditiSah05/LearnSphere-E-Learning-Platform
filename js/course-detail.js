@@ -24,4 +24,22 @@
     window.LSCart.addToCart({ title: course.title, price: course.price, img: course.img });
     window.location.href = 'cart.html';
   });
+
+  const shareBtn = document.getElementById('shareCourseBtn');
+  shareBtn.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const shareUrl = window.location.href;
+    if (navigator.share) {
+      navigator.share({ title: course.title, text: `Check out ${course.title} on LearnSphere`, url: shareUrl }).catch(() => {});
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      const original = shareBtn.textContent;
+      shareBtn.textContent = ' Link copied!';
+      setTimeout(() => { shareBtn.textContent = original; }, 1500);
+    } catch {
+      prompt('Copy this link:', shareUrl);
+    }
+  });
 })();
