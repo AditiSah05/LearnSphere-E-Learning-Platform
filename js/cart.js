@@ -32,6 +32,7 @@
   function removeFromCart(title) {
     saveCart(getCart().filter((c) => c.title !== title));
   }
+  window.LSCart = { addToCart, getCart };
   function cartTotal(cart) {
     return cart.reduce((sum, c) => sum + c.price, 0);
   }

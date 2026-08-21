@@ -119,7 +119,7 @@
                             <ol class="breadcrumb justify-content-center">
                                 <li class="breadcrumb-item"><a class="text-white" href="index.html">Home</a></li>
                                 <li class="breadcrumb-item"><a class="text-white" href="courses.html">Course</a></li>
-                                <li class="breadcrumb-item text-white active" aria-current="page">HTML Course for Beginners</li>
+                                <li class="breadcrumb-item text-white active" aria-current="page" id="breadcrumbTitle">HTML Course for Beginners</li>
                             </ol>
                         </nav>
                     </div>
@@ -149,18 +149,18 @@
                     <div class="row g-5 justify-content-center">
 
                         <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.3s">
-                            <h2>HTML Course for Beginners</h2>
-                            <p>Start at the beginning by learning HTML basics — an important foundation for building and editing web pages.
+                            <h2 id="courseTitle">HTML Course for Beginners</h2>
+                            <p id="courseDesc">Start at the beginning by learning HTML basics — an important foundation for building and editing web pages.
 
                             </p>
                             <div class="d-flex">
                                 <small><i class="fa fa-star text-warning"></i>
-                                    4.6</small>
-                                <small style="margin-left: 15px;"><i class="fa fa-user-graduate"></i> 5.8L+
+                                    <span id="statRating">4.6</span></small>
+                                <small style="margin-left: 15px;"><i class="fa fa-user-graduate"></i> <span id="statLearners">5.8L+</span>
                                     Learners
                                 </small>
-                                <small style="margin-left: 15px;"><i class="fa fa-user"></i>Beginner</small>
-                                <small style="margin-left: 15px;"><i class="fa fa-clock me-2"></i> 2.0 Hrs</small>
+                                <small style="margin-left: 15px;"><i class="fa fa-user"></i><span id="statLevel">Beginner</span></small>
+                                <small style="margin-left: 15px;"><i class="fa fa-clock me-2"></i> <span id="statDuration">2.0 Hrs</span></small>
 
                             </div>
                             <div class="image-div text-left mt-3">
@@ -307,7 +307,30 @@
                                 </div>
                             </div>
                         </div>
-                        
+
+                        <div class="container" id="Reviews">
+                            <h2 class="mt-4">Reviews</h2>
+                            <div class="d-flex align-items-center mb-4">
+                                <h1 class="mb-0 me-3" id="reviewAverage">0.0</h1>
+                                <div>
+                                    <div id="reviewAverageStars" class="text-warning"></div>
+                                    <small class="text-muted" id="reviewCount">0 reviews</small>
+                                </div>
+                            </div>
+
+                            <div id="reviewList" class="mb-4"></div>
+
+                            <h5>Write a Review</h5>
+                            <p class="mb-2 text-muted small">Use the star rating above to pick your score, then leave a comment.</p>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="reviewName" placeholder="Your name (optional)">
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control" id="reviewComment" placeholder="Your review" style="height:100px"></textarea>
+                            </div>
+                            <button type="button" class="btn btn-primary" id="submitReview">Submit Review</button>
+                        </div>
+
                     </div>
 
                 </div>
@@ -316,27 +339,22 @@
             <div class="col-lg-3 col-md-6 shadow wow fadeInUp" data-wow-delay="0.3s">
 
                 <div class="image text-center">
-                    <img class="img-fluid mt-2" src="img/course-1.jpg" alt="" height="200px" width="500px">
+                    <img class="img-fluid mt-2" src="img/course-1.jpg" alt="" id="sidebarImg" height="200px" width="500px">
                 </div>
-                
-                <h4 class="mt-2 p-2">Free <small></small></h4>
-                
-                <h4 class="mt-2 p-2">$
-                    <small><del>20</del></small>
-                </h4>
-                
+
+                <h4 class="mt-2 p-2" id="sidebarPrice">Free</h4>
 
                 <div class="buttons">
-                    
-                    <a href="#"
+
+                    <a href="#" id="enrollNowBtn"
                         class="text-decoration-none text-white btn p-3 w-100 mb-2">ENROLL NOW</a>
                     <button type="button" class="text-decoration-none text-white btn p-3 w-100 mb-2" id="coursePreviewBtn">Course Preview</button>
-                    
+
                 </div>
                 <div class="list mt-2">
                     <div class="list1 d-flex justify-content-between pt-2 border-bottom">
                         <p><i class="fa fa-clock"></i> Duration</p>
-                        <p>2.0 Hrs</p>
+                        <p id="sidebarDuration">2.0 Hrs</p>
                     </div>
                     <div class="list2 d-flex justify-content-between pt-2 border-bottom">
                         <p><i class="fa fa-book"></i> Lectures</p>
@@ -352,7 +370,7 @@
                     </div>
                     <div class="list5 d-flex justify-content-between pt-2 border-bottom">
                         <p><i class="fa fa-list"></i> Skill Level</p>
-                        <p>Beginner</p>
+                        <p id="sidebarLevel">Beginner</p>
                     </div>
                     <div class="list6 d-flex justify-content-between pt-2 border-bottom">
                         <p><i class="fa fa-list"></i> Deadline</p>
@@ -384,9 +402,9 @@
                 <h4 class="text-white mb-3">Quick Link</h4>
                 <p><a class="text-light" href="about.html">About Us</a></p>
                 <p><a class="text-light" href="contact.html">Contact Us</a></p>
-                <p><a class="text-light" href="">Privacy Policy</a></p>
-                <p><a class="text-light" href="">Terms & Condition</a></p>
-                <p><a class="text-light" href="">FAQs & Help</a></p>
+                <p><a class="text-light" href="privacy.html">Privacy Policy</a></p>
+                <p><a class="text-light" href="terms.html">Terms & Condition</a></p>
+                <p><a class="text-light" href="faq.html">FAQs & Help</a></p>
             </div>
             <div class="col-lg-4 col-md-6">
                 <h4 class="text-white mb-3">Contact</h4>
@@ -464,6 +482,10 @@
 
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
+<script src="js/courses-data.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/course-detail.js"></script>
+<script src="js/reviews.js"></script>
 </body>
 
 </html>
