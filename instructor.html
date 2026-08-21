@@ -61,11 +61,14 @@
                     <div class="dropdown-menu fade-down m-0">
                         <a href="team.html" class="dropdown-item">Our Team</a>
                         <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                       
+                        <a href="faq.html" class="dropdown-item">FAQ</a>
                     </div>
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
-                <a href="login.html" class="nav-item nav-link">Login</a>
+                <a href="dashboard.html" class="nav-item nav-link">Dashboard</a>
+                <a href="wishlist.html" class="nav-item nav-link"><span class="position-relative d-inline-block"><i class="fa fa-heart"></i><span id="wishlistCount" class="badge bg-danger rounded-pill position-absolute" style="top:-6px;right:-10px;font-size:10px;">0</span></span></a>
+                <a href="cart.html" class="nav-item nav-link"><span class="position-relative d-inline-block"><i class="fa fa-shopping-cart"></i><span id="cartCount" class="badge bg-danger rounded-pill position-absolute" style="top:-6px;right:-10px;font-size:10px;">0</span></span></a>
+                <a href="login.html" class="nav-item nav-link"><i class="fa fa-user"></i></a>
             </div>
         </div>
     </nav>
@@ -100,7 +103,7 @@
             </div>
             <div class="row g-4">
                 <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s">
-                    <h5>Welcome to SecretCoder - Where Knowledge Meets Innovation</h5>
+                    <h5>Welcome to LearnSphere - Where Knowledge Meets Innovation</h5>
                     <p class="mb-4">Are you passionate about sharing your expertise and making a real impact on learners worldwide? If so, we invite you to become an instructor on our dynamic e-learning platform! Join a community of educators dedicated to fostering a love for learning and empowering individuals to achieve their goals.</p>
                    
                     
@@ -121,7 +124,7 @@
                 </div>
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
                     
-                    <h1 class="mb-4" style="color: #fb873f;">Why Choose SecretCoder as Your Teaching Hub?</h1>
+                    <h1 class="mb-4" style="color: #fb873f;">Why Choose LearnSphere as Your Teaching Hub?</h1>
                     
                     <div class="row gy-2 gx-4 mb-4">
                         <ul style="list-style: none;">
@@ -255,7 +258,7 @@
         </div>
         <div class="modal-body">
             <form>
-                <h5 class="mb-4">Join SecretCoder's Global Community
+                <h5 class="mb-4">Join LearnSphere's Global Community
                     of Expert Instructors</h5>
                 <div class="row g-3">
                     <div class="col-md-6">
@@ -286,27 +289,27 @@
                     
                     <div class="col-12">
                         <div class="form-floating">
-                            <label for="degree">What is the highest degree ?</label>
-                            <select name="degree" id="degree" class="form-control">
+                            <select name="degreeLevel" id="degreeLevel" class="form-select">
                             <option value="..">...</option>
                             <option value="High School">High School</option>
                             <option value="Undergraduate">Undergraduate</option>
                             <option value="Graduate">Graduate</option>
                             <option value="Post-Graduate">Post-Graduate</option>
                         </select>
+                            <label for="degreeLevel">What is the highest degree ?</label>
                         </div>
                     </div>
-                    
+
                     <div class="col-12">
                         <div class="form-floating">
-                            <label for="degree">What subject would you like to teach?</label>
-                            <select name="degree" id="degree" class="form-control">
+                            <select name="subject" id="subject" class="form-select">
                             <option value="..">...</option>
                             <option value="Technology">Technology</option>
                             <option value="Marketing">Marketing</option>
                             <option value="Business">Business</option>
                             <option value="Education">Education</option>
                         </select>
+                            <label for="subject">What subject would you like to teach?</label>
                         </div>
                     </div>
                     
@@ -347,7 +350,7 @@
                     
                     <h5 class="mb-4">Join Us in Transforming Lives Through Education!</h5>
                     
-                    <p>At SecretCoder, we believe that education has the power to transform lives. Join us in creating a world where knowledge knows no bounds, and together, let's inspire, innovate, and educate!</p>
+                    <p>At LearnSphere, we believe that education has the power to transform lives. Join us in creating a world where knowledge knows no bounds, and together, let's inspire, innovate, and educate!</p>
                     
                 </div>
 
@@ -427,6 +430,8 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
 </body>
 
 </html>
