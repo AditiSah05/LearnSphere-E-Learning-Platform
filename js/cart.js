@@ -56,10 +56,8 @@
         const priceText = card.querySelector('.fw-bold.fs-6.text-center').textContent.trim();
         const price = parseInt(priceText.replace(/[^\d]/g, ''), 10) || 0;
         const img = card.querySelector('img').getAttribute('src');
-        const originalHTML = btn.innerHTML;
         const added = addToCart({ title, price, img });
-        btn.textContent = added ? 'Added ✓' : 'Already in cart';
-        setTimeout(() => { btn.innerHTML = originalHTML; }, 1200);
+        showToast(added ? `${title} added to cart` : `${title} is already in your cart`, added ? 'success' : 'info');
       });
     }
 
@@ -176,12 +174,18 @@
               </div>
             </div>
             <button class="btn btn-sm btn-outline-primary ms-3 mark-progress" data-title="${course.title}"
-              ${course.progress >= 100 ? 'disabled' : ''}>${course.progress >= 100 ? 'Completed' : 'Mark +10%'}</button>`;
+              ${course.progress >= 100 ? 'disabled' : ''}>${course.progress >= 100 ? 'Completed' : 'Mark +10%'}</button>
+            ${course.progress >= 100 ? `<button class="btn btn-sm btn-primary ms-2 download-certificate" data-title="${course.title}">🎓 Certificate</button>` : ''}`;
           dashboardList.appendChild(row);
         });
       }
 
       dashboardList.addEventListener('click', (e) => {
+        const certBtn = e.target.closest('.download-certificate');
+        if (certBtn) {
+          window.generateCertificate(certBtn.dataset.title);
+          return;
+        }
         const btn = e.target.closest('.mark-progress');
         if (!btn) return;
         const enrolled = getEnrolled();

@@ -3,6 +3,7 @@
   const id = params.get('id') || 'course-1';
   const course = COURSES.find((c) => c.id === id) || COURSES[0];
   window.CURRENT_COURSE = course;
+  if (window.trackRecentlyViewed) window.trackRecentlyViewed(course);
 
   document.title = `LearnSphere : ${course.title}`;
   const metaDesc = document.getElementById('metaDescription');

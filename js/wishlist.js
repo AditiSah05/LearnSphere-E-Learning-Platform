@@ -100,8 +100,7 @@
         const cartBtn = e.target.closest('.move-to-cart');
         if (cartBtn) {
           window.LSCart.addToCart({ title: cartBtn.dataset.title, price: Number(cartBtn.dataset.price), img: cartBtn.dataset.img });
-          cartBtn.textContent = 'Added ✓';
-          setTimeout(() => { cartBtn.textContent = 'Add to Cart'; }, 1200);
+          showToast(`${cartBtn.dataset.title} added to cart`, 'success');
         }
       });
 
