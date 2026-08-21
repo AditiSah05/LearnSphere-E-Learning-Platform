@@ -437,6 +437,11 @@
 }
 
 
+.text-accent {
+    color: #fb873f;
+}
+
+
 /*** Section Title ***/
 .section-title {
     position: relative;
