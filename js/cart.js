@@ -84,13 +84,13 @@
 
         cart.forEach((item) => {
           const row = document.createElement('div');
-          row.className = 'd-flex align-items-center justify-content-between border-bottom py-3';
+          row.className = 'd-flex flex-wrap align-items-center justify-content-between gap-2 border-bottom py-3';
           row.innerHTML = `
             <div class="d-flex align-items-center">
               <img src="${item.img}" alt="" style="width:70px;height:50px;object-fit:cover;" class="rounded me-3">
               <span>${item.title}</span>
             </div>
-            <div class="d-flex align-items-center">
+            <div class="d-flex flex-wrap align-items-center gap-2">
               <span class="fw-bold me-4">${item.price === 0 ? 'Free' : '₹ ' + item.price}</span>
               <button class="btn btn-sm btn-outline-danger remove-item" data-title="${item.title}">Remove</button>
             </div>`;
@@ -163,10 +163,10 @@
 
         enrolled.forEach((course) => {
           const row = document.createElement('div');
-          row.className = 'd-flex align-items-center border-bottom py-3';
+          row.className = 'd-flex flex-wrap align-items-center gap-2 border-bottom py-3';
           row.innerHTML = `
             <img src="${course.img}" alt="" style="width:90px;height:60px;object-fit:cover;" class="rounded me-3">
-            <div class="flex-grow-1">
+            <div class="flex-grow-1" style="min-width:180px;">
               <div class="d-flex justify-content-between">
                 <span>${course.title}</span>
                 <span class="fw-bold">${course.progress}%</span>

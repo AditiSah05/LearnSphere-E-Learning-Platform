@@ -75,13 +75,13 @@
 
         list.forEach((item) => {
           const row = document.createElement('div');
-          row.className = 'd-flex align-items-center justify-content-between border-bottom py-3';
+          row.className = 'd-flex flex-wrap align-items-center justify-content-between gap-2 border-bottom py-3';
           row.innerHTML = `
             <div class="d-flex align-items-center">
               <img src="${item.img}" alt="" style="width:70px;height:50px;object-fit:cover;" class="rounded me-3">
               <span>${item.title}</span>
             </div>
-            <div class="d-flex align-items-center">
+            <div class="d-flex flex-wrap align-items-center gap-2">
               <span class="fw-bold me-4">${item.price === 0 ? 'Free' : '₹ ' + item.price}</span>
               <button class="btn btn-sm btn-primary me-2 move-to-cart" data-title="${item.title}" data-price="${item.price}" data-img="${item.img}">Add to Cart</button>
               <button class="btn btn-sm btn-outline-danger remove-item" data-title="${item.title}">Remove</button>
