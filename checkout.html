@@ -108,13 +108,14 @@
                     </div>
                 </div>
                 <div class="col-lg-5">
-                    <form class="shadow p-4" id="checkoutForm">
+                    <form class="shadow p-4 needs-validation" id="checkoutForm" novalidate>
                         <h5 class="mb-4">Payment Details <small class="text-muted">(demo — no real charge)</small></h5>
                         <div class="row g-3">
                             <div class="col-12">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="ccName" placeholder="Name on Card" required>
                                     <label for="ccName">Name on Card</label>
+                                    <div class="invalid-feedback">Please enter the name on the card.</div>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -122,6 +123,7 @@
                                     <input type="text" class="form-control" id="ccNumber" placeholder="Card Number"
                                         pattern="[0-9]{13,19}" maxlength="19" required>
                                     <label for="ccNumber">Card Number</label>
+                                    <div class="invalid-feedback">Enter a valid 13–19 digit card number.</div>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -129,6 +131,7 @@
                                     <input type="text" class="form-control" id="ccExpiry" placeholder="MM/YY"
                                         pattern="(0[1-9]|1[0-2])\/[0-9]{2}" required>
                                     <label for="ccExpiry">Expiry (MM/YY)</label>
+                                    <div class="invalid-feedback">Use MM/YY format.</div>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -136,6 +139,7 @@
                                     <input type="text" class="form-control" id="ccCvv" placeholder="CVV"
                                         pattern="[0-9]{3,4}" required>
                                     <label for="ccCvv">CVV</label>
+                                    <div class="invalid-feedback">3 or 4 digit code.</div>
                                 </div>
                             </div>
                             <div class="col-12">

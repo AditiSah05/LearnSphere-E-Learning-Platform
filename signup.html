@@ -101,28 +101,38 @@
             <div class="row g-4 wow fadeInUp" data-wow-delay="0.5s ">
 
                 <center>
-                    <form class="shadow p-4" style="max-width: 550px;">
+                    <form class="shadow p-4 needs-validation" style="max-width: 550px;" id="signupForm" novalidate>
                         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                             <h1 class="mb-5 bg-white text-center px-3">Signup</h1>
 
                         </div>
+                        <div id="signupMessage" class="col-12 text-center" style="display:none;"></div>
                         <div class="row g-3">
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="username" placeholder="Username">
+                                    <input type="text" class="form-control" id="username" placeholder="Username" required minlength="3">
                                     <label for="Username">Username</label>
+                                    <div class="invalid-feedback">Username must be at least 3 characters.</div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="email" class="form-control" id="email" placeholder="Email Address">
+                                    <input type="email" class="form-control" id="email" placeholder="Email Address" required>
                                     <label for="email">Email Address</label>
+                                    <div class="invalid-feedback">Please enter a valid email address.</div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="password" class="form-control" id="password" placeholder="Password">
+                                    <input type="password" class="form-control" id="password" placeholder="Password" required minlength="6">
                                     <label for="password">Password</label>
+                                    <div class="invalid-feedback">Password must be at least 6 characters.</div>
+                                </div>
+                                <div class="password-strength mt-2" id="pwStrengthWrap" style="display:none;">
+                                    <div class="progress" style="height:6px;">
+                                        <div class="progress-bar" id="pwStrengthBar" role="progressbar" style="width:0%;"></div>
+                                    </div>
+                                    <small id="pwStrengthLabel" class="text-muted"></small>
                                 </div>
                             </div>
 
@@ -212,6 +222,8 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script src="js/form-validation.js"></script>
+    <script src="js/password-strength.js"></script>
 </body>
 
 </html>

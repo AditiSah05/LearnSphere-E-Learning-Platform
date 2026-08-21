@@ -126,6 +126,10 @@
       const form = document.getElementById('checkoutForm');
       form.addEventListener('submit', (e) => {
         e.preventDefault();
+        if (!form.checkValidity()) {
+          form.classList.add('was-validated');
+          return;
+        }
         enroll(cart);
         saveCart([]);
         document.getElementById('checkoutFormWrap').style.display = 'none';
