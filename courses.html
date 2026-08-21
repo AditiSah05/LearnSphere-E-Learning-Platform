@@ -66,6 +66,8 @@
                     </div>
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
+                <a href="dashboard.html" class="nav-item nav-link">Dashboard</a>
+                <a href="cart.html" class="nav-item nav-link position-relative"><i class="fa fa-shopping-cart"></i><span id="cartCount" class="badge bg-danger rounded-pill position-absolute" style="top:2px;right:-2px;font-size:10px;">0</span></a>
                 <a href="login.html" class="nav-item nav-link"><i class="fa fa-user"></i></a>
                 <a href="#" class="nav-item nav-link">
                     <div id="google_translate_element"></div>
@@ -196,8 +198,33 @@
                 <h6 class="section-title bg-white text-center px-3">Popular Courses</h6>
                 <h1 class="mb-5" style="color: #fb873f;">Explore new and trending free online courses</h1>
             </div>
-            <div class="row g-4 py-2">
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="row g-3 mb-4 align-items-center course-filter-bar">
+                <div class="col-md-5">
+                    <input type="text" id="courseSearch" class="form-control" placeholder="Search courses...">
+                </div>
+                <div class="col-md-3">
+                    <select id="priceFilter" class="form-select">
+                        <option value="all">All Prices</option>
+                        <option value="free">Free</option>
+                        <option value="paid">Paid</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select id="levelFilter" class="form-select">
+                        <option value="all">All Levels</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <span id="courseCount" class="text-muted small"></span>
+                </div>
+            </div>
+            <div id="noCourseResults" class="text-center py-4" style="display:none;">
+                <p class="text-muted mb-0">No courses match your search.</p>
+            </div>
+            <div class="row g-4 py-2" id="courseGrid">
+                <div class="col-lg-3 col-md-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
                             <img class="img-fluid" src="img/course-1.jpg" alt="">
@@ -222,12 +249,12 @@
                             <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>2.0
                                 Hrs</small>
                             <small class="py-1 px-2 fw-bold fs-6 text-center">₹ 0</small>
-                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="login.html">Enroll
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn">Enroll
                                     Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-3 col-md-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
                             <img class="img-fluid" src="img/course-2.jpg" alt="">
@@ -253,12 +280,12 @@
                             <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>4.0
                                 Hrs</small>
                             <small class="py-1 px-2 fw-bold fs-6 text-center">₹ 199</small>
-                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="login.html">Enroll
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn">Enroll
                                     Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-3 col-md-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
                             <img class="img-fluid" src="img/course-3.jpg" alt="">
@@ -284,12 +311,12 @@
                             <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>2.5
                                 Hrs</small>
                             <small class="py-1 px-2 fw-bold fs-6 text-center">₹ 0</small>
-                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="login.html">Enroll
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn">Enroll
                                     Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-3 col-md-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
                             <img class="img-fluid" src="img/course-4.jpg" alt="">
@@ -315,12 +342,12 @@
                             <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>3.0
                                 Hrs</small>
                             <small class="py-1 px-2 fw-bold fs-6 text-center">₹ 299</small>
-                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="login.html">Enroll
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn">Enroll
                                     Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-3 col-md-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
                             <img class="img-fluid" src="img/course-5.jpg" alt="">
@@ -346,12 +373,12 @@
                             <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>5.0
                                 Hrs</small>
                             <small class="py-1 px-2 fw-bold fs-6 text-center">₹ 0</small>
-                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="login.html">Enroll
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn">Enroll
                                     Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-3 col-md-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
                             <img class="img-fluid" src="img/course-6.jpg" alt="">
@@ -377,12 +404,12 @@
                             <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>4.5
                                 Hrs</small>
                             <small class="py-1 px-2 fw-bold fs-6 text-center">₹ 0</small>
-                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="login.html">Enroll
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn">Enroll
                                     Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-3 col-md-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
                             <img class="img-fluid" src="img/course-7.jpg" alt="">
@@ -408,12 +435,12 @@
                             <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>3.0
                                 Hrs</small>
                             <small class="py-1 px-2 fw-bold fs-6 text-center">₹ 0</small>
-                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="login.html">Enroll
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn">Enroll
                                     Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-3 col-md-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
                             <img class="img-fluid" src="img/course-8.jpg" alt="">
@@ -439,12 +466,12 @@
                             <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>3.5
                                 Hrs</small>
                             <small class="py-1 px-2 fw-bold fs-6 text-center">₹ 149</small>
-                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="login.html">Enroll
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn">Enroll
                                     Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-3 col-md-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
                             <img class="img-fluid" src="img/course-9.jpg" alt="">
@@ -469,12 +496,12 @@
                             <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>3.5
                                 Hrs</small>
                             <small class="py-1 px-2 fw-bold fs-6 text-center">₹ 0</small>
-                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="login.html">Enroll
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn">Enroll
                                     Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-3 col-md-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
                             <img class="img-fluid" src="img/course-10.jpg" alt="">
@@ -502,12 +529,12 @@
                             <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>2.5
                                 Hrs</small>
                             <small class="py-1 px-2 fw-bold fs-6 text-center">₹ 299</small>
-                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="login.html">Enroll
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn">Enroll
                                     Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-3 col-md-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
                             <img class="img-fluid" src="img/course-11.jpg" alt="">
@@ -533,12 +560,12 @@
                             <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>2.0
                                 Hrs</small>
                             <small class="py-1 px-2 fw-bold fs-6 text-center">₹ 0</small>
-                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="login.html">Enroll
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn">Enroll
                                     Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-3 col-md-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
                             <img class="img-fluid" src="img/course-12.png" alt="">
@@ -564,7 +591,7 @@
                             <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>1.5
                                 Hrs</small>
                             <small class="py-1 px-2 fw-bold fs-6 text-center">₹ 0</small>
-                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="login.html">Enroll
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn">Enroll
                                     Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
                         </div>
                     </div>
@@ -698,6 +725,8 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script src="js/course-filter.js"></script>
+    <script src="js/cart.js"></script>
 </body>
 
 </html>
