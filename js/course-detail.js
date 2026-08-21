@@ -4,6 +4,12 @@
   const course = COURSES.find((c) => c.id === id) || COURSES[0];
   window.CURRENT_COURSE = course;
 
+  document.title = `LearnSphere : ${course.title}`;
+  const metaDesc = document.getElementById('metaDescription');
+  if (metaDesc) {
+    metaDesc.setAttribute('content', `Learn ${course.title} on LearnSphere — ${course.level} level, ${course.duration}, rated ${course.rating}/5. ${course.price === 0 ? 'Free' : '₹' + course.price} to enroll.`);
+  }
+
   document.getElementById('breadcrumbTitle').textContent = course.title;
   document.getElementById('courseTitle').textContent = course.title;
   document.getElementById('courseDesc').textContent =
