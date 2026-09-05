@@ -421,9 +421,35 @@ body {
 }
 
 /* Any shadowed card/panel gets rounded corners for consistency with the
-   rest of the redesigned pages (navbar excluded — it stays edge-to-edge). */
+   rest of the redesigned pages (navbar excluded — it stays edge-to-edge),
+   plus more generous internal padding — tight p-3/p-4 boxes read as dense
+   and templatey; more breathing room reads as premium. */
 .shadow:not(nav) {
     border-radius: var(--radius-md, 14px);
+}
+
+/* Generic panels (forms, success/empty-state boxes) get more breathing
+   room than their tight p-3/p-4/p-5 default — cards with their own fitted
+   layout (course/service/category tiles, the course-detail sidebar) are
+   excluded since padding there would push their images off the edge. */
+.shadow:not(nav):not(.course-item):not(.service-item):not(.content):not(.col-lg-3) {
+    padding: 2.25rem 2.5rem !important;
+}
+
+@media (max-width: 767.98px) {
+    .shadow:not(nav):not(.course-item):not(.service-item):not(.content):not(.col-lg-3) {
+        padding: 1.75rem !important;
+    }
+}
+
+/* More vertical air between rows of cards (course/category/service grids)
+   than Bootstrap's default equal x/y gutter gives. */
+.row.g-4 {
+    --bs-gutter-y: 2rem;
+}
+
+.row.g-5 {
+    --bs-gutter-y: 3.5rem;
 }
 
 
@@ -507,6 +533,46 @@ body {
     font-weight: 700;
     text-align: center;
     padding: 5px 0;
+}
+
+/* Simplified course cards: rating/learners/level/duration move into a
+   hover-only overlay instead of sitting on the card face at all times. */
+.course-hover-info {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: rgba(24, 29, 56, .88);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease;
+    padding: 12px;
+}
+
+.course-item:hover .course-hover-info {
+    opacity: 1;
+}
+
+.course-hover-info small {
+    font-size: 13px;
+    color: #fff;
+}
+
+.course-bottom-row {
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+}
+
+.course-bottom-row > small:first-child {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--dark);
 }
 
 /*** Categories & Courses ***/
