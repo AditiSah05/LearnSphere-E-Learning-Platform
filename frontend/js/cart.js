@@ -22,7 +22,7 @@
   async function addToCart(course) {
     const res = await fetch(`${API_BASE}/cart`, { method: 'POST', headers: authHeaders(), body: JSON.stringify(course) });
     const data = await res.json();
-    updateBadge();
+    updateBadge(data.added);
     return data.added;
   }
   async function removeFromCart(title) {
@@ -34,10 +34,15 @@
   function cartTotal(cart) {
     return cart.reduce((sum, c) => sum + c.price, 0);
   }
-  async function updateBadge() {
+  async function updateBadge(pulse) {
     const badge = document.getElementById('cartCount');
     if (!badge) return;
     badge.textContent = token() ? (await getCart() || []).length : 0;
+    if (pulse) {
+      badge.classList.remove('badge-pulse');
+      void badge.offsetWidth;
+      badge.classList.add('badge-pulse');
+    }
   }
 
   document.addEventListener('DOMContentLoaded', () => {

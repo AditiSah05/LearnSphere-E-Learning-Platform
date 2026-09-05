@@ -22,17 +22,22 @@
   async function toggleWishlist(course) {
     const res = await fetch(`${API_BASE}/wishlist/toggle`, { method: 'POST', headers: authHeaders(), body: JSON.stringify(course) });
     const data = await res.json();
-    updateBadge();
+    updateBadge(data.saved);
     return data.saved;
   }
   async function removeFromWishlist(title) {
     await fetch(`${API_BASE}/wishlist/${encodeURIComponent(title)}`, { method: 'DELETE', headers: authHeaders() });
     updateBadge();
   }
-  async function updateBadge() {
+  async function updateBadge(pulse) {
     const badge = document.getElementById('wishlistCount');
     if (!badge) return;
     badge.textContent = token() ? (await getWishlist() || []).length : 0;
+    if (pulse) {
+      badge.classList.remove('badge-pulse');
+      void badge.offsetWidth;
+      badge.classList.add('badge-pulse');
+    }
   }
 
   document.addEventListener('DOMContentLoaded', () => {
