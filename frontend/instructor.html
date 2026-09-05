@@ -258,27 +258,31 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form>
+            <form id="instructorApplyForm" class="needs-validation" novalidate>
                 <h5 class="mb-4">Join LearnSphere's Global Community
                     of Expert Instructors</h5>
+                <div id="instructorApplyMessage" class="mb-3" style="display:none;"></div>
                 <div class="row g-3">
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <input type="text" class="form-control" id="f_name" placeholder="First Name">
-                            <label for="name">First Name</label>
+                            <input type="text" class="form-control" id="f_name" placeholder="First Name" required>
+                            <label for="f_name">First Name</label>
+                            <div class="invalid-feedback">First name is required.</div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <input type="text" class="form-control" id="l_name" placeholder="Last Name">
-                            <label for="name">Last Name</label>
+                            <input type="text" class="form-control" id="l_name" placeholder="Last Name" required>
+                            <label for="l_name">Last Name</label>
+                            <div class="invalid-feedback">Last name is required.</div>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <input type="email" class="form-control" id="email" placeholder="Your Email">
+                            <input type="email" class="form-control" id="email" placeholder="Your Email" required>
                             <label for="email">Your Email</label>
+                            <div class="invalid-feedback">A valid email is required.</div>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -323,22 +327,47 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <div class="">
-                            <input type="checkbox">
-                            I acknowledge and warrant the truthfulness of the information I submit, I also acknowledge that I have read, understand, and I agree with all Terms of service, and that I fully agree that all sales are final and that there are no refunds whatsoever.
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="agreeTerms" required>
+                            <label class="form-check-label" for="agreeTerms">I acknowledge and warrant the truthfulness of the information I submit, I also acknowledge that I have read, understand, and I agree with all Terms of service, and that I fully agree that all sales are final and that there are no refunds whatsoever.</label>
+                            <div class="invalid-feedback">You must agree before applying.</div>
                         </div>
                     </div>
-                 
+
                 </div>
             </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn text-white">Apply</button>
+          <button type="submit" form="instructorApplyForm" class="btn text-white">Apply</button>
         </div>
       </div>
     </div>
   </div>
+
+  <script>
+    (function () {
+        const form = document.getElementById('instructorApplyForm');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            form.classList.add('was-validated');
+            if (!form.checkValidity()) return;
+
+            const msg = document.getElementById('instructorApplyMessage');
+            msg.className = 'alert alert-success mb-3';
+            msg.textContent = "Application submitted! This is a demo — no application was actually sent.";
+            msg.style.display = '';
+
+            setTimeout(() => {
+                bootstrap.Modal.getInstance(document.getElementById('exampleModal'))?.hide();
+                form.reset();
+                form.classList.remove('was-validated');
+                msg.style.display = 'none';
+            }, 1800);
+        });
+    })();
+  </script>
 
     
     <!-- About End -->

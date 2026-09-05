@@ -139,16 +139,28 @@
         document.getElementById('checkoutTotal').textContent = '₹ ' + cartTotal(cart);
 
         const form = document.getElementById('checkoutForm');
+        const payBtn = form.querySelector('button[type="submit"]');
         form.addEventListener('submit', async (e) => {
           e.preventDefault();
           if (!form.checkValidity()) {
             form.classList.add('was-validated');
             return;
           }
-          await fetch(`${API_BASE}/cart/checkout`, { method: 'POST', headers: authHeaders() });
-          updateBadge();
-          document.getElementById('checkoutFormWrap').style.display = 'none';
-          document.getElementById('checkoutSuccess').style.display = '';
+
+          payBtn.disabled = true;
+          payBtn.textContent = 'Processing…';
+
+          try {
+            const res = await fetch(`${API_BASE}/cart/checkout`, { method: 'POST', headers: authHeaders() });
+            if (!res.ok) throw new Error('checkout failed');
+            updateBadge();
+            document.getElementById('checkoutFormWrap').style.display = 'none';
+            document.getElementById('checkoutSuccess').style.display = '';
+          } catch {
+            showToast("Payment couldn't be processed. Please try again.", 'error');
+            payBtn.disabled = false;
+            payBtn.textContent = 'Pay & Enroll';
+          }
         });
       })();
     }

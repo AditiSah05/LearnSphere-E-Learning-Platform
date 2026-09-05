@@ -74,23 +74,28 @@
       return;
     }
     if (!selectedRating) {
-      alert('Please select a star rating first.');
+      showToast('Please select a star rating first.', 'info');
       return;
     }
     const comment = document.getElementById('reviewComment').value.trim();
     if (!comment) {
-      alert('Please write a short review.');
+      showToast('Please write a short review.', 'info');
       return;
     }
 
-    const res = await fetch(`${API_BASE}/reviews/${COURSE_ID}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token()}` },
-      body: JSON.stringify({ rating: selectedRating, comment }),
-    });
-    if (!res.ok) {
-      const data = await res.json().catch(() => ({}));
-      alert(data.message || 'Could not submit review.');
+    try {
+      const res = await fetch(`${API_BASE}/reviews/${COURSE_ID}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token()}` },
+        body: JSON.stringify({ rating: selectedRating, comment }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        showToast(data.message || 'Could not submit review.', 'error');
+        return;
+      }
+    } catch {
+      showToast("Couldn't reach the server. Please try again.", 'error');
       return;
     }
 

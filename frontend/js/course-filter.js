@@ -34,5 +34,13 @@
   search.addEventListener('input', apply);
   priceFilter.addEventListener('change', apply);
   levelFilter.addEventListener('change', apply);
+
+  document.getElementById('clearCourseFilters')?.addEventListener('click', () => {
+    search.value = '';
+    priceFilter.value = 'all';
+    levelFilter.value = 'all';
+    apply();
+  });
+
   apply();
 })();

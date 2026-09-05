@@ -45,12 +45,12 @@
   async function fetchProgress() {
     try {
       const res = await fetch(`${API_BASE}/enrollment`, { headers: authHeaders() });
-      if (!res.ok) return 0;
+      if (!res.ok) return null;
       const data = await res.json();
       const enrolled = data.enrolled.find((e) => e.title === course.title);
       return enrolled ? enrolled.progress : 0;
     } catch {
-      return 0;
+      return null;
     }
   }
 
@@ -61,11 +61,11 @@
         headers: authHeaders(),
         body: JSON.stringify({ amount: 25 }),
       });
-      if (!res.ok) return currentProgress;
+      if (!res.ok) return null;
       const data = await res.json();
       return data.enrollment.progress;
     } catch {
-      return currentProgress;
+      return null;
     }
   }
 
@@ -118,7 +118,16 @@
   });
 
   document.getElementById('completeLectureBtn').addEventListener('click', async () => {
-    currentProgress = await bumpProgress();
+    const completeBtn = document.getElementById('completeLectureBtn');
+    completeBtn.disabled = true;
+    const result = await bumpProgress();
+    completeBtn.disabled = false;
+
+    if (result === null) {
+      showToast("Couldn't save your progress — check your connection and try again.", 'error');
+      return;
+    }
+    currentProgress = result;
     if (currentIndex < LECTURES.length - 1) currentIndex++;
     render();
   });
@@ -132,7 +141,13 @@
   });
 
   (async () => {
-    currentProgress = await fetchProgress();
+    const fetched = await fetchProgress();
+    if (fetched === null) {
+      showToast("Couldn't load your saved progress — check your connection.", 'error');
+      currentProgress = 0;
+    } else {
+      currentProgress = fetched;
+    }
     currentIndex = Math.min(Math.floor(currentProgress / 25), LECTURES.length - 1);
     render();
   })();
