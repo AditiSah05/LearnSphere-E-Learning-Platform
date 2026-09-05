@@ -316,101 +316,52 @@
     }
 }
 
-/*** Header carousel ***/
+/*** Static hero (homepage) ***/
 
-.header-carousel .owl-carousel-item {
-    position: relative;
+.hero-static {
     height: 100vh;
 }
 
-.header-carousel p {
+.hero-static p {
     margin-top: 20px;
     font-size: 20px;
     line-height: 30px;
 }
 
-@media (max-width: 1300px) {
-    .header-carousel .owl-carousel-item {
-        position: relative;
-        min-height: 80vh;
-    }
+.hero-static img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
-    .header-carousel .owl-carousel-item img {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+@media (max-width: 1300px) {
+    .hero-static {
+        min-height: 80vh;
     }
 }
 
 @media (max-width: 768px) {
-    .header-carousel .owl-carousel-item {
-        position: relative;
+    .hero-static {
         min-height: 500px;
-    }
-
-    .header-carousel .owl-carousel-item img {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
     }
 }
 
 @media (max-width: 430px) {
-
-    .header-carousel .owl-carousel-item {
-        position: relative;
+    .hero-static {
         height: 500px;
     }
 
-    .header-carousel .owl-carousel-item img {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .header-carousel h1 {
+    .hero-static h1 {
         font-size: 30px;
         line-height: 30px;
     }
 
-    .header-carousel p {
+    .hero-static p {
         margin-top: 20px;
         font-size: 15px;
         line-height: 20px;
     }
-}
-
-.header-carousel .owl-nav {
-    position: absolute;
-    top: 50%;
-    right: 8%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-}
-
-.header-carousel .owl-nav .owl-prev,
-.header-carousel .owl-nav .owl-next {
-    margin: 7px 0;
-    width: 45px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #FFFFFF;
-    background: transparent;
-    border: 1px solid #FFFFFF;
-    font-size: 22px;
-    transition: .5s;
-}
-
-.header-carousel .owl-nav .owl-prev:hover,
-.header-carousel .owl-nav .owl-next:hover {
-    background: var(--primary);
-    border-color: var(--primary);
 }
 
 .page-header {
