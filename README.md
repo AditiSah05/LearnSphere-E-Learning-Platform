@@ -36,14 +36,41 @@ Static front-end e-learning platform template. Multi-page HTML/CSS/JS site: cour
 
 ## Stack
 
-Plain HTML, CSS, vanilla JS, Bootstrap. No build step, no package manager, no backend.
+Frontend: plain HTML, CSS, vanilla JS, Bootstrap. No build step.
+Backend: Node.js + Express + MongoDB (Mongoose), JWT auth.
+
+## Backend (`backend/`)
+
+Express + MongoDB API: auth, cart/enrollment, wishlist, reviews — all per-user, JWT-protected (except auth and reading reviews).
+
+- `server.js` — Express app entry
+- `models/` — `User`, `Cart`, `Wishlist`, `Enrollment`, `Review` (Mongoose schemas)
+- `middleware/auth.js` — JWT verification, sets `req.userId`
+- `routes/auth.js` — `POST /api/auth/signup`, `POST /api/auth/login`, `GET /api/auth/me`
+- `routes/cart.js` — `GET/POST /api/cart`, `DELETE /api/cart/:title`, `POST /api/cart/checkout` (moves cart items into enrollments)
+- `routes/wishlist.js` — `GET /api/wishlist`, `POST /api/wishlist/toggle`, `DELETE /api/wishlist/:title`
+- `routes/enrollment.js` — `GET /api/enrollment`, `PATCH /api/enrollment/:title/progress`
+- `routes/reviews.js` — `GET /api/reviews/:courseId` (public), `POST /api/reviews/:courseId` (auth required)
+
+Frontend cart/wishlist/reviews pages now call these endpoints instead of `localStorage`, and redirect to `login.html` if the visitor isn't logged in.
+
+### Setup
+
+```bash
+cd backend
+npm install
+cp .env.example .env   # set MONGODB_URI and JWT_SECRET
+npm start
+```
+
+Runs on `http://localhost:5000`. Requires a MongoDB instance (local or Atlas).
 
 ## Run locally
 
-Serve the folder with any static server, e.g.:
+Frontend — serve the repo root with any static server:
 
 ```bash
 python3 -m http.server 8080
 ```
 
-Open `http://localhost:8080/index.html`.
+Open `http://localhost:8080/index.html`. `login.html` and `signup.html` call the backend at `http://localhost:5000/api/auth`, so start the backend too for real accounts.

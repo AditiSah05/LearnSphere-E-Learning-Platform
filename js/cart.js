@@ -1,44 +1,39 @@
 (function () {
-  const CART_KEY = 'ls_cart';
-  const ENROLLED_KEY = 'ls_enrolled';
+  const API_BASE = 'http://localhost:5000/api';
 
-  function getEnrolled() {
-    try { return JSON.parse(localStorage.getItem(ENROLLED_KEY)) || []; } catch { return []; }
-  }
-  function enroll(items) {
-    const enrolled = getEnrolled();
-    items.forEach((item) => {
-      if (!enrolled.some((c) => c.title === item.title)) {
-        enrolled.push({ title: item.title, img: item.img, progress: 0 });
-      }
-    });
-    localStorage.setItem(ENROLLED_KEY, JSON.stringify(enrolled));
+  function token() { return localStorage.getItem('token'); }
+  function authHeaders() { return { 'Content-Type': 'application/json', Authorization: `Bearer ${token()}` }; }
+  function requireLogin() {
+    if (token()) return true;
+    showToast('Please login to continue', 'info');
+    setTimeout(() => (window.location.href = 'login.html'), 600);
+    return false;
   }
 
-  function getCart() {
-    try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { return []; }
+  async function getCart() {
+    const res = await fetch(`${API_BASE}/cart`, { headers: authHeaders() });
+    if (!res.ok) return [];
+    return (await res.json()).items;
   }
-  function saveCart(cart) {
-    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  async function addToCart(course) {
+    const res = await fetch(`${API_BASE}/cart`, { method: 'POST', headers: authHeaders(), body: JSON.stringify(course) });
+    const data = await res.json();
+    updateBadge();
+    return data.added;
+  }
+  async function removeFromCart(title) {
+    await fetch(`${API_BASE}/cart/${encodeURIComponent(title)}`, { method: 'DELETE', headers: authHeaders() });
     updateBadge();
   }
-  function addToCart(course) {
-    const cart = getCart();
-    if (cart.some((c) => c.title === course.title)) return false;
-    cart.push(course);
-    saveCart(cart);
-    return true;
-  }
-  function removeFromCart(title) {
-    saveCart(getCart().filter((c) => c.title !== title));
-  }
-  window.LSCart = { addToCart, getCart };
+  window.LSCart = { addToCart, getCart, requireLogin };
+
   function cartTotal(cart) {
     return cart.reduce((sum, c) => sum + c.price, 0);
   }
-  function updateBadge() {
+  async function updateBadge() {
     const badge = document.getElementById('cartCount');
-    if (badge) badge.textContent = getCart().length;
+    if (!badge) return;
+    badge.textContent = token() ? (await getCart()).length : 0;
   }
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -47,16 +42,17 @@
     // Wire "Enroll Now" buttons on courses.html
     const grid = document.getElementById('courseGrid');
     if (grid) {
-      grid.addEventListener('click', (e) => {
+      grid.addEventListener('click', async (e) => {
         const btn = e.target.closest('.enroll-btn');
         if (!btn) return;
         e.preventDefault();
+        if (!requireLogin()) return;
         const card = btn.closest('.course-card');
         const title = card.querySelector('h5').textContent.trim();
         const priceText = card.querySelector('.fw-bold.fs-6.text-center').textContent.trim();
         const price = parseInt(priceText.replace(/[^\d]/g, ''), 10) || 0;
         const img = card.querySelector('img').getAttribute('src');
-        const added = addToCart({ title, price, img });
+        const added = await addToCart({ title, price, img });
         showToast(added ? `${title} added to cart` : `${title} is already in your cart`, added ? 'success' : 'info');
       });
     }
@@ -64,8 +60,10 @@
     // Render cart.html
     const cartList = document.getElementById('cartList');
     if (cartList) {
-      function render() {
-        const cart = getCart();
+      if (!requireLogin()) return;
+
+      async function render() {
+        const cart = await getCart();
         const empty = document.getElementById('cartEmpty');
         const totalEl = document.getElementById('cartTotal');
         const checkoutBtn = document.getElementById('checkoutBtn');
@@ -98,10 +96,10 @@
         totalEl.textContent = '₹ ' + cartTotal(cart);
       }
 
-      cartList.addEventListener('click', (e) => {
+      cartList.addEventListener('click', async (e) => {
         const btn = e.target.closest('.remove-item');
         if (!btn) return;
-        removeFromCart(btn.dataset.title);
+        await removeFromCart(btn.dataset.title);
         render();
       });
 
@@ -111,35 +109,47 @@
     // Render checkout.html
     const checkoutSummary = document.getElementById('checkoutSummary');
     if (checkoutSummary) {
-      const cart = getCart();
-      if (!cart.length) {
-        window.location.href = 'cart.html';
-        return;
-      }
-      checkoutSummary.innerHTML = cart
-        .map((item) => `<div class="d-flex justify-content-between py-1"><span>${item.title}</span><span>${item.price === 0 ? 'Free' : '₹ ' + item.price}</span></div>`)
-        .join('');
-      document.getElementById('checkoutTotal').textContent = '₹ ' + cartTotal(cart);
+      if (!requireLogin()) return;
 
-      const form = document.getElementById('checkoutForm');
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        if (!form.checkValidity()) {
-          form.classList.add('was-validated');
+      (async () => {
+        const cart = await getCart();
+        if (!cart.length) {
+          window.location.href = 'cart.html';
           return;
         }
-        enroll(cart);
-        saveCart([]);
-        document.getElementById('checkoutFormWrap').style.display = 'none';
-        document.getElementById('checkoutSuccess').style.display = '';
-      });
+        checkoutSummary.innerHTML = cart
+          .map((item) => `<div class="d-flex justify-content-between py-1"><span>${item.title}</span><span>${item.price === 0 ? 'Free' : '₹ ' + item.price}</span></div>`)
+          .join('');
+        document.getElementById('checkoutTotal').textContent = '₹ ' + cartTotal(cart);
+
+        const form = document.getElementById('checkoutForm');
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          if (!form.checkValidity()) {
+            form.classList.add('was-validated');
+            return;
+          }
+          await fetch(`${API_BASE}/cart/checkout`, { method: 'POST', headers: authHeaders() });
+          updateBadge();
+          document.getElementById('checkoutFormWrap').style.display = 'none';
+          document.getElementById('checkoutSuccess').style.display = '';
+        });
+      })();
     }
 
     // Render dashboard.html
     const dashboardList = document.getElementById('dashboardList');
     if (dashboardList) {
-      function renderDashboard() {
-        const enrolled = getEnrolled();
+      if (!requireLogin()) return;
+
+      async function getEnrolled() {
+        const res = await fetch(`${API_BASE}/enrollment`, { headers: authHeaders() });
+        if (!res.ok) return [];
+        return (await res.json()).enrolled;
+      }
+
+      async function renderDashboard() {
+        const enrolled = await getEnrolled();
         const empty = document.getElementById('dashboardEmpty');
         const statTotal = document.getElementById('statTotal');
         const statCompleted = document.getElementById('statCompleted');
@@ -180,7 +190,7 @@
         });
       }
 
-      dashboardList.addEventListener('click', (e) => {
+      dashboardList.addEventListener('click', async (e) => {
         const certBtn = e.target.closest('.download-certificate');
         if (certBtn) {
           window.generateCertificate(certBtn.dataset.title);
@@ -188,10 +198,7 @@
         }
         const btn = e.target.closest('.mark-progress');
         if (!btn) return;
-        const enrolled = getEnrolled();
-        const course = enrolled.find((c) => c.title === btn.dataset.title);
-        if (course) course.progress = Math.min(100, course.progress + 10);
-        localStorage.setItem(ENROLLED_KEY, JSON.stringify(enrolled));
+        await fetch(`${API_BASE}/enrollment/${encodeURIComponent(btn.dataset.title)}/progress`, { method: 'PATCH', headers: authHeaders() });
         renderDashboard();
       });
 

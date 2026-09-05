@@ -1,31 +1,34 @@
 (function () {
-  const WISHLIST_KEY = 'ls_wishlist';
+  const API_BASE = 'http://localhost:5000/api';
 
-  function getWishlist() {
-    try { return JSON.parse(localStorage.getItem(WISHLIST_KEY)) || []; } catch { return []; }
-  }
-  function saveWishlist(list) {
-    localStorage.setItem(WISHLIST_KEY, JSON.stringify(list));
-    updateBadge();
-  }
-  function toggleWishlist(course) {
-    const list = getWishlist();
-    const idx = list.findIndex((c) => c.title === course.title);
-    if (idx === -1) {
-      list.push(course);
-      saveWishlist(list);
-      return true;
-    }
-    list.splice(idx, 1);
-    saveWishlist(list);
+  function token() { return localStorage.getItem('token'); }
+  function authHeaders() { return { 'Content-Type': 'application/json', Authorization: `Bearer ${token()}` }; }
+  function requireLogin() {
+    if (token()) return true;
+    if (typeof showToast === 'function') showToast('Please login to continue', 'info');
+    setTimeout(() => (window.location.href = 'login.html'), 600);
     return false;
   }
-  function removeFromWishlist(title) {
-    saveWishlist(getWishlist().filter((c) => c.title !== title));
+
+  async function getWishlist() {
+    const res = await fetch(`${API_BASE}/wishlist`, { headers: authHeaders() });
+    if (!res.ok) return [];
+    return (await res.json()).items;
   }
-  function updateBadge() {
+  async function toggleWishlist(course) {
+    const res = await fetch(`${API_BASE}/wishlist/toggle`, { method: 'POST', headers: authHeaders(), body: JSON.stringify(course) });
+    const data = await res.json();
+    updateBadge();
+    return data.saved;
+  }
+  async function removeFromWishlist(title) {
+    await fetch(`${API_BASE}/wishlist/${encodeURIComponent(title)}`, { method: 'DELETE', headers: authHeaders() });
+    updateBadge();
+  }
+  async function updateBadge() {
     const badge = document.getElementById('wishlistCount');
-    if (badge) badge.textContent = getWishlist().length;
+    if (!badge) return;
+    badge.textContent = token() ? (await getWishlist()).length : 0;
   }
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -34,26 +37,30 @@
     // Wire heart buttons on courses.html
     const grid = document.getElementById('courseGrid');
     if (grid) {
-      const wishlist = getWishlist();
-      grid.querySelectorAll('.course-card').forEach((card) => {
-        const btn = card.querySelector('.wishlist-btn');
-        const title = card.querySelector('h5').textContent.trim();
-        if (wishlist.some((c) => c.title === title)) {
-          btn.classList.remove('far');
-          btn.classList.add('fas');
-        }
-      });
+      (async () => {
+        if (!token()) return;
+        const wishlist = await getWishlist();
+        grid.querySelectorAll('.course-card').forEach((card) => {
+          const btn = card.querySelector('.wishlist-btn');
+          const title = card.querySelector('h5').textContent.trim();
+          if (wishlist.some((c) => c.title === title)) {
+            btn.classList.remove('far');
+            btn.classList.add('fas');
+          }
+        });
+      })();
 
-      grid.addEventListener('click', (e) => {
+      grid.addEventListener('click', async (e) => {
         const btn = e.target.closest('.wishlist-btn');
         if (!btn) return;
         e.preventDefault();
+        if (!requireLogin()) return;
         const card = btn.closest('.course-card');
         const title = card.querySelector('h5').textContent.trim();
         const priceText = card.querySelector('.fw-bold.fs-6.text-center').textContent.trim();
         const price = parseInt(priceText.replace(/[^\d]/g, ''), 10) || 0;
         const img = card.querySelector('img').getAttribute('src');
-        const saved = toggleWishlist({ title, price, img });
+        const saved = await toggleWishlist({ title, price, img });
         btn.classList.toggle('fas', saved);
         btn.classList.toggle('far', !saved);
       });
@@ -62,8 +69,10 @@
     // Render wishlist.html
     const wishlistList = document.getElementById('wishlistList');
     if (wishlistList) {
-      function render() {
-        const list = getWishlist();
+      if (!requireLogin()) return;
+
+      async function render() {
+        const list = await getWishlist();
         const empty = document.getElementById('wishlistEmpty');
         wishlistList.innerHTML = '';
 
@@ -90,16 +99,16 @@
         });
       }
 
-      wishlistList.addEventListener('click', (e) => {
+      wishlistList.addEventListener('click', async (e) => {
         const removeBtn = e.target.closest('.remove-item');
         if (removeBtn) {
-          removeFromWishlist(removeBtn.dataset.title);
+          await removeFromWishlist(removeBtn.dataset.title);
           render();
           return;
         }
         const cartBtn = e.target.closest('.move-to-cart');
         if (cartBtn) {
-          window.LSCart.addToCart({ title: cartBtn.dataset.title, price: Number(cartBtn.dataset.price), img: cartBtn.dataset.img });
+          await window.LSCart.addToCart({ title: cartBtn.dataset.title, price: Number(cartBtn.dataset.price), img: cartBtn.dataset.img });
           showToast(`${cartBtn.dataset.title} added to cart`, 'success');
         }
       });

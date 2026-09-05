@@ -1,6 +1,7 @@
 (function () {
   document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('form.needs-validation').forEach((form) => {
+      if (form.id === 'loginForm' || form.id === 'signupForm') return; // handled by js/auth.js
       form.addEventListener('submit', (e) => {
         e.preventDefault();
         e.stopPropagation();

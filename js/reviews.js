@@ -2,15 +2,16 @@
   const ratingWidget = document.getElementById('courseRating');
   if (!ratingWidget) return;
 
-  const COURSE_KEY = (window.CURRENT_COURSE && window.CURRENT_COURSE.id) || 'course-1';
-  const REVIEWS_KEY = 'ls_reviews_' + COURSE_KEY;
+  const API_BASE = 'http://localhost:5000/api';
+  const COURSE_ID = (window.CURRENT_COURSE && window.CURRENT_COURSE.id) || 'course-1';
   let selectedRating = 0;
 
-  function getReviews() {
-    try { return JSON.parse(localStorage.getItem(REVIEWS_KEY)) || []; } catch { return []; }
-  }
-  function saveReviews(reviews) {
-    localStorage.setItem(REVIEWS_KEY, JSON.stringify(reviews));
+  function token() { return localStorage.getItem('token'); }
+
+  async function getReviews() {
+    const res = await fetch(`${API_BASE}/reviews/${COURSE_ID}`);
+    if (!res.ok) return [];
+    return (await res.json()).reviews;
   }
   function starsHTML(value) {
     let html = '';
@@ -34,8 +35,8 @@
     });
   });
 
-  function render() {
-    const reviews = getReviews();
+  async function render() {
+    const reviews = await getReviews();
     const list = document.getElementById('reviewList');
     const avgEl = document.getElementById('reviewAverage');
     const avgStars = document.getElementById('reviewAverageStars');
@@ -55,8 +56,6 @@
     countEl.textContent = `${reviews.length} review${reviews.length === 1 ? '' : 's'}`;
 
     list.innerHTML = reviews
-      .slice()
-      .reverse()
       .map((r) => `
         <div class="border-bottom py-3">
           <div class="d-flex justify-content-between">
@@ -68,22 +67,33 @@
       .join('');
   }
 
-  document.getElementById('submitReview').addEventListener('click', () => {
+  document.getElementById('submitReview').addEventListener('click', async () => {
+    if (!token()) {
+      if (typeof showToast === 'function') showToast('Please login to leave a review', 'info');
+      setTimeout(() => (window.location.href = 'login.html'), 600);
+      return;
+    }
     if (!selectedRating) {
       alert('Please select a star rating first.');
       return;
     }
-    const name = document.getElementById('reviewName').value.trim() || 'Anonymous';
     const comment = document.getElementById('reviewComment').value.trim();
     if (!comment) {
       alert('Please write a short review.');
       return;
     }
-    const reviews = getReviews();
-    reviews.push({ name, rating: selectedRating, comment });
-    saveReviews(reviews);
 
-    document.getElementById('reviewName').value = '';
+    const res = await fetch(`${API_BASE}/reviews/${COURSE_ID}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token()}` },
+      body: JSON.stringify({ rating: selectedRating, comment }),
+    });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      alert(data.message || 'Could not submit review.');
+      return;
+    }
+
     document.getElementById('reviewComment').value = '';
     selectedRating = 0;
     highlightStars(0);
