@@ -1,3 +1,19 @@
+/* Typography: Space Grotesk (headings) + Inter (body) instead of the
+   generic Heebo/Nunito pairing baked into bootstrap.min.css. */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: -.01em;
+}
+
+.display-3 {
+    font-weight: 800;
+}
+
 .course-item {
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -217,7 +233,7 @@ body {
 
 /*** Button ***/
 .btn {
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     font-weight: 600;
     transition: .5s;
 }
@@ -884,7 +900,7 @@ body {
     line-height: 1;
     color: var(--primary);
     opacity: .1;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     transition: opacity .3s ease;
 }
 
