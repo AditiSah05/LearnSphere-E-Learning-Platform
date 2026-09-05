@@ -785,6 +785,40 @@
     }
 }
 
+/* Continue Learning banner (homepage, logged-in users with in-progress course) */
+.continue-banner {
+    background: linear-gradient(135deg, var(--dark), #2a3164);
+    border-radius: var(--radius-md);
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    box-shadow: var(--shadow-soft);
+}
+
+.continue-icon {
+    font-size: 32px;
+    color: var(--primary);
+    flex: 0 0 auto;
+}
+
+.continue-eyebrow {
+    color: rgba(255, 255, 255, .6);
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.continue-banner h6 {
+    color: #fff;
+    font-weight: 700;
+}
+
+.continue-banner .btn {
+    flex: 0 0 auto;
+}
+
 /* Service cards: rounded, lifted, gradient icon badge */
 .service-item {
     border-radius: var(--radius-md);
