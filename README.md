@@ -28,11 +28,14 @@ Static front-end e-learning platform template. Multi-page HTML/CSS/JS site: cour
 
 ## Structure
 
-- `css/` — Bootstrap + custom styles (`style.css`)
-- `scss/` — Bootstrap SCSS source
-- `js/` — page logic (cart, wishlist, course filter/detail, reviews, form validation, toast, etc.)
-- `lib/` — third-party libs (owlcarousel, wow, animate, easing, waypoints)
-- `img/` — images/icons
+- `frontend/` — all static site files
+  - `*.html` — pages
+  - `css/` — Bootstrap + custom styles (`style.css`)
+  - `scss/` — Bootstrap SCSS source
+  - `js/` — page logic (cart, wishlist, course filter/detail, reviews, form validation, toast, etc.)
+  - `lib/` — third-party libs (owlcarousel, wow, animate, easing, waypoints)
+  - `img/` — images/icons
+- `backend/` — Express + MongoDB API
 
 ## Stack
 
@@ -67,9 +70,10 @@ Runs on `http://localhost:5000`. Requires a MongoDB instance (local or Atlas).
 
 ## Run locally
 
-Frontend — serve the repo root with any static server:
+Frontend — serve the `frontend/` folder with any static server:
 
 ```bash
+cd frontend
 python3 -m http.server 8080
 ```
 
