@@ -179,22 +179,6 @@
     font-weight: 700 !important;
 }
 
-.back-to-top {
-    position: fixed;
-    display: none;
-    left: 45px;
-    bottom: 45px;
-    z-index: 99;
-}
-
-@media (max-width: 767.98px) {
-    .back-to-top {
-        left: auto;
-        right: 20px;
-        bottom: 20px;
-    }
-}
-
 
 /*** Spinner ***/
 #spinner {
