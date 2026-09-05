@@ -433,6 +433,12 @@
     color: #fb873f;
 }
 
+/* Any shadowed card/panel gets rounded corners for consistency with the
+   rest of the redesigned pages (navbar excluded — it stays edge-to-edge). */
+.shadow:not(nav) {
+    border-radius: var(--radius-md, 14px);
+}
+
 
 /*** Section Title ***/
 .section-title {
