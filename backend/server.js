@@ -7,6 +7,7 @@ const cartRoutes = require('./routes/cart');
 const wishlistRoutes = require('./routes/wishlist');
 const enrollmentRoutes = require('./routes/enrollment');
 const reviewsRoutes = require('./routes/reviews');
+const contactRoutes = require('./routes/contact');
 
 const app = express();
 app.use(cors());
@@ -17,6 +18,7 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/wishlist', wishlistRoutes);
 app.use('/api/enrollment', enrollmentRoutes);
 app.use('/api/reviews', reviewsRoutes);
+app.use('/api/contact', contactRoutes);
 
 app.get('/api/health', (req, res) => res.json({ ok: true }));
 

@@ -9,10 +9,11 @@
     submitBtn.disabled = true;
 
     try {
+      const data = Object.fromEntries(new FormData(form));
       const res = await fetch(form.action, {
         method: 'POST',
-        body: new FormData(form),
-        headers: { Accept: 'application/json' },
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' },
       });
       if (res.ok) {
         msg.textContent = 'Message sent! We\'ll get back to you soon.';
