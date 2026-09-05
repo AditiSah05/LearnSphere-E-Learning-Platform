@@ -194,6 +194,25 @@ html, body.player-body {
     font-weight: 700;
 }
 
+@media (max-width: 480px) {
+    .player-topbar {
+        gap: 10px;
+        padding: 0 12px;
+    }
+
+    .player-progress-wrap {
+        width: 90px;
+    }
+
+    .player-progress-wrap span {
+        display: none;
+    }
+
+    .player-course-title {
+        font-size: 14px;
+    }
+}
+
 @media (max-width: 900px) {
     .player-layout {
         flex-direction: column;
