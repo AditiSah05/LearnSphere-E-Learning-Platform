@@ -700,3 +700,391 @@
     padding-right: 0;
     border-right: none;
 }
+
+
+/* =========================================================
+   Modern Landing Page Redesign
+   ========================================================= */
+
+:root {
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 24px;
+    --shadow-soft: 0 8px 24px rgba(24, 29, 56, .08);
+    --shadow-hover: 0 20px 40px rgba(24, 29, 56, .16);
+}
+
+/* Buttons: softer, pill-shaped, lift on hover */
+.btn {
+    border-radius: 50px !important;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(251, 135, 63, .25);
+}
+
+/* Navbar: glass effect once scrolled by main.js sticky logic */
+.navbar.sticky-top {
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    background-color: rgba(255, 255, 255, .92) !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    position: relative;
+}
+
+.navbar-light .navbar-nav .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 18px;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width .3s ease;
+}
+
+.navbar-light .navbar-nav .nav-link:hover::after,
+.navbar-light .navbar-nav .nav-link.active::after {
+    width: 100%;
+}
+
+/* Hero stats bar */
+.hero-stats {
+    position: relative;
+    z-index: 2;
+    margin-top: -60px;
+    margin-bottom: 40px;
+}
+
+.hero-stats .stats-card {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-hover);
+    padding: 28px 10px;
+}
+
+.hero-stats .stat-item {
+    text-align: center;
+    padding: 10px 8px;
+}
+
+.hero-stats .stat-item h3 {
+    color: var(--primary);
+    font-weight: 800;
+    font-size: 2rem;
+    margin-bottom: 2px;
+}
+
+.hero-stats .stat-item p {
+    margin: 0;
+    color: var(--dark);
+    font-weight: 600;
+    font-size: .9rem;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+@media (max-width: 767.98px) {
+    .hero-stats {
+        margin-top: 20px;
+    }
+}
+
+/* Service cards: rounded, lifted, gradient icon badge */
+.service-item {
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft) !important;
+    background: #fff;
+}
+
+.service-item .p-4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.service-item img {
+    padding: 16px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(251, 135, 63, .12), rgba(251, 135, 63, .04));
+    box-shadow: var(--shadow-soft);
+}
+
+.service-item:hover {
+    box-shadow: var(--shadow-hover) !important;
+}
+
+/* Category tiles: circular icon badge, lift on hover */
+.category .content {
+    border-radius: var(--radius-md);
+    background: #fff;
+}
+
+.category img {
+    padding: 10px;
+    border-radius: 50%;
+    background: #fdf3ec;
+    box-shadow: var(--shadow-soft);
+    transition: .5s;
+}
+
+.category .content:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover) !important;
+}
+
+.category .content:hover img {
+    background: #fff;
+}
+
+/* Course cards: rounded corners, cleaner hover */
+.course-item {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: #fff;
+}
+
+.course-item:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.course-item .image img {
+    border-radius: 0;
+    height: 180px;
+}
+
+/* CTA banners */
+.bg-light.py-5 .row.g-5,
+section[style*="banner-3"] .row.g-5 {
+    border-radius: var(--radius-lg);
+}
+
+section[style*="banner-3"] {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+/* FAQ accordion polish */
+.accordion-item {
+    border: none !important;
+    border-radius: var(--radius-md) !important;
+    overflow: hidden;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow-soft);
+}
+
+.accordion-button {
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: var(--primary);
+    color: #fff;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+    border-color: transparent;
+}
+
+.accordion-button::after {
+    transition: transform .3s ease;
+}
+
+
+/* =========================================================
+   Dashboard
+   ========================================================= */
+
+.dashboard-hero {
+    background: linear-gradient(135deg, var(--dark), #2a3164);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
+.dash-stat-card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: #fff;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    padding: 24px;
+    height: 100%;
+    transition: .3s ease;
+}
+
+.dash-stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+}
+
+.dash-stat-icon {
+    flex: 0 0 auto;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: var(--primary);
+    background: rgba(251, 135, 63, .12);
+}
+
+.dash-stat-icon-success {
+    color: #198754;
+    background: rgba(25, 135, 84, .12);
+}
+
+.dash-stat-icon-info {
+    color: #0dcaf0;
+    background: rgba(13, 202, 240, .12);
+}
+
+.dash-panel {
+    background: #fff;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    padding: 28px;
+}
+
+/* Course rows rendered by js/cart.js inside #dashboardList */
+#dashboardList > div {
+    border-radius: var(--radius-sm);
+    padding: 16px !important;
+    margin-bottom: 12px;
+    border-bottom: none !important;
+    background: #fafafa;
+    transition: .3s ease;
+}
+
+#dashboardList > div:hover {
+    background: #f3f3f3;
+}
+
+#dashboardList img {
+    border-radius: var(--radius-sm);
+}
+
+#dashboardList .progress {
+    border-radius: 20px;
+    background-color: #e9ecef;
+}
+
+#dashboardList .progress-bar {
+    border-radius: 20px;
+}
+
+
+/* =========================================================
+   Instructor / info pages: rounded feature images, modal polish
+   ========================================================= */
+
+.position-relative.h-100 > img.img-fluid {
+    border-radius: var(--radius-lg);
+}
+
+#exampleModal .modal-content {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: none;
+}
+
+#exampleModal .modal-header {
+    background: linear-gradient(135deg, #fb873f, #f69050);
+    color: #fff;
+    border-bottom: none;
+}
+
+#exampleModal .modal-header .btn-close {
+    filter: brightness(0) invert(1);
+}
+
+#exampleModal .form-control,
+#exampleModal .form-select {
+    border-radius: var(--radius-sm);
+}
+
+#exampleModal .btn[type="submit"] {
+    background-color: #fb873f;
+}
+
+
+/* =========================================================
+   Course detail page
+   ========================================================= */
+
+.star-rating i {
+    cursor: pointer;
+    color: #ddd;
+    font-size: 20px;
+    margin-right: 2px;
+    transition: color .2s ease;
+}
+
+.star-rating i.text-warning {
+    color: #ffc107 !important;
+}
+
+.course-tabs {
+    border-bottom: 2px solid #eee;
+    gap: 8px;
+}
+
+.course-tabs .nav-link {
+    border: none;
+    color: #6c757d;
+    font-weight: 600;
+    padding: 10px 4px;
+    margin-right: 24px;
+    border-radius: 0;
+    position: relative;
+}
+
+.course-tabs .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width .3s ease;
+}
+
+.course-tabs .nav-link.active,
+.course-tabs .nav-link:hover {
+    color: var(--primary);
+    background: transparent;
+}
+
+.course-tabs .nav-link.active::after {
+    width: 100%;
+}
+
+/* Sidebar purchase card */
+.col-lg-3.col-md-6.shadow.wow.fadeInUp {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    position: sticky;
+    top: 20px;
+    background: #fff;
+}
+
+.col-lg-3.col-md-6.shadow.wow.fadeInUp .list > div {
+    padding: 8px 16px;
+}
+
+.col-lg-3.col-md-6.shadow.wow.fadeInUp .buttons {
+    padding: 0 16px;
+}
+
+.col-lg-3.col-md-6.shadow.wow.fadeInUp .buttons #enrollNowBtn,
+.col-lg-3.col-md-6.shadow.wow.fadeInUp .buttons #coursePreviewBtn {
+    border-radius: var(--radius-sm) !important;
+}

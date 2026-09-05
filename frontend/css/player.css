@@ -1,0 +1,218 @@
+html, body.player-body {
+    height: 100%;
+    margin: 0;
+    background: #f4f5f7;
+    overflow: hidden;
+}
+
+.player-topbar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 60px;
+    padding: 0 20px;
+    background: #181d38;
+    color: #fff;
+}
+
+.player-exit {
+    color: #fff;
+    font-size: 18px;
+    flex: 0 0 auto;
+}
+
+.player-course-title {
+    flex: 1 1 auto;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.player-progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 220px;
+    flex: 0 0 auto;
+}
+
+.player-progress-wrap .progress {
+    flex: 1 1 auto;
+    height: 8px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, .15);
+}
+
+.player-progress-wrap .progress-bar {
+    background-color: #fb873f;
+    border-radius: 20px;
+}
+
+.player-progress-wrap span {
+    font-size: 13px;
+    font-weight: 600;
+    min-width: 34px;
+}
+
+.player-sidebar-toggle {
+    background: rgba(255, 255, 255, .1);
+    color: #fff;
+    border: none;
+    flex: 0 0 auto;
+}
+
+.player-sidebar-toggle:hover {
+    background: rgba(255, 255, 255, .2);
+    color: #fff;
+}
+
+.player-layout {
+    display: flex;
+    height: calc(100vh - 60px);
+}
+
+.player-stage {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 24px 32px;
+    background: #f4f5f7;
+}
+
+.player-video {
+    background: #000;
+    border-radius: 14px;
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    max-height: 65vh;
+}
+
+.player-video-placeholder {
+    text-align: center;
+    color: #fff;
+}
+
+.player-video-placeholder i {
+    font-size: 64px;
+    color: #fb873f;
+    margin-bottom: 12px;
+}
+
+.player-stage-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 24px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(24, 29, 56, .08);
+    padding: 20px;
+}
+
+.player-stage-actions {
+    display: flex;
+    gap: 10px;
+    flex: 0 0 auto;
+}
+
+.player-stage-actions .btn {
+    border-radius: 50px;
+}
+
+.player-sidebar {
+    flex: 0 0 340px;
+    background: #fff;
+    border-left: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    transition: margin-right .3s ease;
+}
+
+.player-layout.sidebar-collapsed .player-sidebar {
+    margin-right: -340px;
+}
+
+.player-sidebar-header {
+    padding: 18px 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.player-lecture-list {
+    list-style: none;
+    margin: 0;
+    padding: 8px;
+    overflow-y: auto;
+}
+
+.player-lecture-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background .2s ease;
+}
+
+.player-lecture-item:hover {
+    background: #f7f7f9;
+}
+
+.player-lecture-item.active {
+    background: #fdf0e6;
+}
+
+.lecture-status {
+    flex: 0 0 auto;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #666;
+}
+
+.player-lecture-item.done .lecture-status {
+    background: #198754;
+    color: #fff;
+}
+
+.player-lecture-item.active .lecture-name {
+    color: var(--primary, #fb873f);
+    font-weight: 700;
+}
+
+@media (max-width: 900px) {
+    .player-layout {
+        flex-direction: column;
+        height: auto;
+        overflow-y: auto;
+    }
+
+    .player-sidebar {
+        flex: 0 0 auto;
+        border-left: none;
+        border-top: 1px solid #eee;
+    }
+
+    .player-layout.sidebar-collapsed .player-sidebar {
+        display: none;
+        margin-right: 0;
+    }
+
+    html, body.player-body {
+        overflow: auto;
+    }
+}

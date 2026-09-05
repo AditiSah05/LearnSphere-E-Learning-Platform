@@ -183,7 +183,8 @@
                 <div class="progress-bar" role="progressbar" style="width:${course.progress}%; background-color:#fb873f;"></div>
               </div>
             </div>
-            <button class="btn btn-sm btn-outline-primary ms-3 mark-progress" data-title="${course.title}"
+            <a class="btn btn-sm btn-primary ms-3" href="learn.html?title=${encodeURIComponent(course.title)}">Continue Learning</a>
+            <button class="btn btn-sm btn-outline-primary ms-2 mark-progress" data-title="${course.title}"
               ${course.progress >= 100 ? 'disabled' : ''}>${course.progress >= 100 ? 'Completed' : 'Mark +10%'}</button>
             ${course.progress >= 100 ? `<button class="btn btn-sm btn-primary ms-2 download-certificate" data-title="${course.title}">🎓 Certificate</button>` : ''}`;
           dashboardList.appendChild(row);

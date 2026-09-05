@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>LearnSphere : Learning Player</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Watch your course lectures and track your progress on LearnSphere." name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/player.css" rel="stylesheet">
+</head>
+
+<body class="player-body">
+
+    <!-- Player Top Bar -->
+    <header class="player-topbar">
+        <a href="dashboard.html" class="player-exit" title="Back to dashboard"><i class="fa fa-arrow-left"></i></a>
+        <div class="player-course-title">
+            <span class="fw-bold" id="playerCourseTitle">Loading course…</span>
+        </div>
+        <div class="player-progress-wrap">
+            <div class="progress">
+                <div class="progress-bar" id="playerProgressBar" role="progressbar" style="width:0%;"></div>
+            </div>
+            <span id="playerProgressLabel">0%</span>
+        </div>
+        <button type="button" class="btn btn-sm player-sidebar-toggle" id="sidebarToggle" title="Toggle lecture list">
+            <i class="fa fa-list"></i>
+        </button>
+    </header>
+
+    <!-- Player Body -->
+    <div class="player-layout" id="playerLayout">
+
+        <!-- Video / Content Stage -->
+        <main class="player-stage">
+            <div class="player-video">
+                <div class="player-video-placeholder" id="playerVideoPlaceholder">
+                    <i class="fa fa-play-circle"></i>
+                    <p id="playerLectureTitle">Select a lecture to begin</p>
+                </div>
+            </div>
+
+            <div class="player-stage-footer">
+                <div>
+                    <h4 id="playerLectureHeading">Welcome</h4>
+                    <p class="text-muted mb-0" id="playerLectureDesc">Pick a lecture from the list to start learning.</p>
+                </div>
+                <div class="player-stage-actions">
+                    <button type="button" class="btn btn-outline-secondary" id="prevLectureBtn"><i class="fa fa-chevron-left"></i> Prev</button>
+                    <button type="button" class="btn btn-primary" id="completeLectureBtn">Mark Complete & Next</button>
+                </div>
+            </div>
+
+            <div class="text-center mt-4" id="playerCertificateWrap" style="display:none;">
+                <p class="text-success fw-bold"><i class="fa fa-trophy me-2"></i>Course completed! You can now download your certificate.</p>
+                <button type="button" class="btn btn-primary" id="playerCertificateBtn">🎓 Download Certificate</button>
+            </div>
+        </main>
+
+        <!-- Lecture Sidebar -->
+        <aside class="player-sidebar" id="playerSidebar">
+            <div class="player-sidebar-header">
+                <h6 class="mb-0">Course Content</h6>
+                <small class="text-muted" id="playerLectureCount">0 lectures</small>
+            </div>
+            <ul class="player-lecture-list" id="playerLectureList"></ul>
+        </aside>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/courses-data.js"></script>
+    <script src="js/certificate.js"></script>
+    <script src="js/player.js"></script>
+</body>
+
+</html>
