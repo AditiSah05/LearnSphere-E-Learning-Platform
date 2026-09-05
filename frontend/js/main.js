@@ -39,8 +39,8 @@
                 '<span class="ms-2 d-none d-lg-inline">' + firstName + '</span>' +
                 '</a>' +
                 '<div class="dropdown-menu dropdown-menu-end fade-down m-0">' +
-                '<a class="dropdown-item" href="dashboard.html"><i class="fa fa-columns me-2"></i>Dashboard</a>' +
-                '<a class="dropdown-item" href="#" id="logoutBtn"><i class="fa fa-sign-out-alt me-2"></i>Logout</a>' +
+                '<a class="dropdown-item" href="dashboard.html"><i class="bi bi-grid-1x2-fill me-2"></i>Dashboard</a>' +
+                '<a class="dropdown-item" href="#" id="logoutBtn"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>' +
                 '</div>';
             link.replaceWith(wrapper);
         });

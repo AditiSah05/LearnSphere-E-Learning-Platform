@@ -16,7 +16,7 @@
     cards.forEach((card) => {
       const title = card.querySelector('h5').textContent.trim().toLowerCase();
       const badge = card.querySelector('.image div').textContent.trim().toLowerCase();
-      const levelText = card.querySelector('.fa-user')?.parentElement.textContent.trim().toLowerCase() || '';
+      const levelText = card.querySelector('.bi-person-fill')?.parentElement.textContent.trim().toLowerCase() || '';
 
       const matchesQuery = !q || title.includes(q);
       const matchesPrice = price === 'all' || badge === price;

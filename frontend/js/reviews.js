@@ -16,7 +16,7 @@
   function starsHTML(value) {
     let html = '';
     for (let i = 1; i <= 5; i++) {
-      html += `<i class="${i <= value ? 'fas' : 'far'} fa-star"></i>`;
+      html += `<i class="bi ${i <= value ? 'bi-star-fill' : 'bi-star'}"></i>`;
     }
     return html;
   }

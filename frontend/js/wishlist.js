@@ -54,8 +54,8 @@
           const btn = card.querySelector('.wishlist-btn');
           const title = card.querySelector('h5').textContent.trim();
           if (wishlist.some((c) => c.title === title)) {
-            btn.classList.remove('far');
-            btn.classList.add('fas');
+            btn.classList.remove('bi-heart');
+            btn.classList.add('bi-heart-fill');
           }
         });
       })();
@@ -71,8 +71,8 @@
         const price = parseInt(priceText.replace(/[^\d]/g, ''), 10) || 0;
         const img = card.querySelector('img').getAttribute('src');
         const saved = await toggleWishlist({ title, price, img });
-        btn.classList.toggle('fas', saved);
-        btn.classList.toggle('far', !saved);
+        btn.classList.toggle('bi-heart-fill', saved);
+        btn.classList.toggle('bi-heart', !saved);
       });
     }
 

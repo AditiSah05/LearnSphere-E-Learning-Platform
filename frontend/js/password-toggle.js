@@ -4,8 +4,8 @@
     if (!input) return;
     const showing = input.type === 'text';
     input.type = showing ? 'password' : 'text';
-    icon.classList.toggle('fa-eye', showing);
-    icon.classList.toggle('fa-eye-slash', !showing);
+    icon.classList.toggle('bi-eye-fill', showing);
+    icon.classList.toggle('bi-eye-slash-fill', !showing);
     icon.setAttribute('aria-label', showing ? 'Show password' : 'Hide password');
   }
 

@@ -535,38 +535,29 @@ body {
     padding: 5px 0;
 }
 
-/* Simplified course cards: rating/learners/level/duration move into a
-   hover-only overlay instead of sitting on the card face at all times. */
-.course-hover-info {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    background: rgba(24, 29, 56, .88);
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .25s ease;
-    padding: 12px;
+/* Simplified course cards: rating/learners/level/duration stay always
+   visible (not hidden behind hover) in one compact, high-contrast row. */
+.course-stats-row {
+    padding: 8px 12px !important;
+    flex-wrap: wrap;
+    gap: 4px;
 }
 
-.course-item:hover .course-hover-info {
-    opacity: 1;
+.course-stats-row > small {
+    color: var(--dark) !important;
+    font-size: 12.5px;
+    font-weight: 600;
 }
 
-.course-hover-info small {
-    font-size: 13px;
-    color: #fff;
+.course-stats-row i:not(.text-warning) {
+    color: var(--primary) !important;
 }
 
 .course-bottom-row {
     align-items: center;
     justify-content: space-between;
-    padding: 10px 12px;
+    padding: 8px 12px 12px;
+    border-top: 1px solid var(--neutral-border, #eee);
 }
 
 .course-bottom-row > small:first-child {

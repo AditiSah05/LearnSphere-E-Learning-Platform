@@ -97,7 +97,7 @@
       const active = i === currentIndex;
       return `
         <li class="player-lecture-item ${active ? 'active' : ''} ${done ? 'done' : ''}" data-index="${i}">
-          <span class="lecture-status">${done ? '<i class="fa fa-check-circle"></i>' : (i + 1)}</span>
+          <span class="lecture-status">${done ? '<i class="bi bi-check-circle-fill"></i>' : (i + 1)}</span>
           <span class="lecture-name">${lec.name}</span>
         </li>`;
     }).join('');

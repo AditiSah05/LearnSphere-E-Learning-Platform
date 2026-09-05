@@ -19,7 +19,7 @@
         if (imageDiv && !imageDiv.querySelector('.enrolled-ribbon')) {
           const ribbon = document.createElement('div');
           ribbon.className = 'enrolled-ribbon';
-          ribbon.innerHTML = '<i class="fa fa-check-circle me-1"></i>Enrolled';
+          ribbon.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i>Enrolled';
           imageDiv.appendChild(ribbon);
         }
 
