@@ -11,9 +11,13 @@
   }
 
   async function getWishlist() {
-    const res = await fetch(`${API_BASE}/wishlist`, { headers: authHeaders() });
-    if (!res.ok) return [];
-    return (await res.json()).items;
+    try {
+      const res = await fetch(`${API_BASE}/wishlist`, { headers: authHeaders() });
+      if (!res.ok) return null;
+      return (await res.json()).items;
+    } catch {
+      return null;
+    }
   }
   async function toggleWishlist(course) {
     const res = await fetch(`${API_BASE}/wishlist/toggle`, { method: 'POST', headers: authHeaders(), body: JSON.stringify(course) });
@@ -28,7 +32,7 @@
   async function updateBadge() {
     const badge = document.getElementById('wishlistCount');
     if (!badge) return;
-    badge.textContent = token() ? (await getWishlist()).length : 0;
+    badge.textContent = token() ? (await getWishlist() || []).length : 0;
   }
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -40,6 +44,7 @@
       (async () => {
         if (!token()) return;
         const wishlist = await getWishlist();
+        if (!wishlist) return;
         grid.querySelectorAll('.course-card').forEach((card) => {
           const btn = card.querySelector('.wishlist-btn');
           const title = card.querySelector('h5').textContent.trim();
@@ -74,7 +79,15 @@
       async function render() {
         const list = await getWishlist();
         const empty = document.getElementById('wishlistEmpty');
+        const errorEl = document.getElementById('wishlistError');
         wishlistList.innerHTML = '';
+
+        if (list === null) {
+          errorEl.style.display = '';
+          empty.style.display = 'none';
+          return;
+        }
+        errorEl.style.display = 'none';
 
         if (!list.length) {
           empty.style.display = '';
@@ -112,6 +125,8 @@
           showToast(`${cartBtn.dataset.title} added to cart`, 'success');
         }
       });
+
+      document.getElementById('wishlistRetryBtn')?.addEventListener('click', render);
 
       render();
     }

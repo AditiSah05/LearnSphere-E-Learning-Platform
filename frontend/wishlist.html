@@ -102,6 +102,11 @@
                             <p class="mb-3">Your wishlist is empty.</p>
                             <a href="courses.html" class="btn btn-primary">Browse Courses</a>
                         </div>
+                        <div id="wishlistError" class="text-center py-4" style="display:none;">
+                            <i class="fa fa-plug mb-3" style="font-size:36px; color:#dc3545; opacity:.6;"></i>
+                            <p class="mb-3">Couldn't reach the server. Check your connection and try again.</p>
+                            <button type="button" id="wishlistRetryBtn" class="btn btn-primary">Retry</button>
+                        </div>
                         <div id="wishlistList">
                             <div class="skeleton-row"><div class="skeleton skeleton-thumb"></div><div class="skeleton skeleton-line"></div></div>
                             <div class="skeleton-row"><div class="skeleton skeleton-thumb"></div><div class="skeleton skeleton-line"></div></div>

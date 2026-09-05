@@ -11,9 +11,13 @@
   }
 
   async function getCart() {
-    const res = await fetch(`${API_BASE}/cart`, { headers: authHeaders() });
-    if (!res.ok) return [];
-    return (await res.json()).items;
+    try {
+      const res = await fetch(`${API_BASE}/cart`, { headers: authHeaders() });
+      if (!res.ok) return null;
+      return (await res.json()).items;
+    } catch {
+      return null;
+    }
   }
   async function addToCart(course) {
     const res = await fetch(`${API_BASE}/cart`, { method: 'POST', headers: authHeaders(), body: JSON.stringify(course) });
@@ -33,7 +37,7 @@
   async function updateBadge() {
     const badge = document.getElementById('cartCount');
     if (!badge) return;
-    badge.textContent = token() ? (await getCart()).length : 0;
+    badge.textContent = token() ? (await getCart() || []).length : 0;
   }
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -65,9 +69,19 @@
       async function render() {
         const cart = await getCart();
         const empty = document.getElementById('cartEmpty');
+        const errorEl = document.getElementById('cartError');
         const totalEl = document.getElementById('cartTotal');
         const checkoutBtn = document.getElementById('checkoutBtn');
         cartList.innerHTML = '';
+
+        if (cart === null) {
+          errorEl.style.display = '';
+          empty.style.display = 'none';
+          totalEl.textContent = '₹ 0';
+          checkoutBtn.classList.add('disabled');
+          return;
+        }
+        errorEl.style.display = 'none';
 
         if (!cart.length) {
           empty.style.display = '';
@@ -103,6 +117,8 @@
         render();
       });
 
+      document.getElementById('cartRetryBtn')?.addEventListener('click', render);
+
       render();
     }
 
@@ -113,7 +129,7 @@
 
       (async () => {
         const cart = await getCart();
-        if (!cart.length) {
+        if (!cart || !cart.length) {
           window.location.href = 'cart.html';
           return;
         }
@@ -143,18 +159,33 @@
       if (!requireLogin()) return;
 
       async function getEnrolled() {
-        const res = await fetch(`${API_BASE}/enrollment`, { headers: authHeaders() });
-        if (!res.ok) return [];
-        return (await res.json()).enrolled;
+        try {
+          const res = await fetch(`${API_BASE}/enrollment`, { headers: authHeaders() });
+          if (!res.ok) return null;
+          return (await res.json()).enrolled;
+        } catch {
+          return null;
+        }
       }
 
       async function renderDashboard() {
         const enrolled = await getEnrolled();
         const empty = document.getElementById('dashboardEmpty');
+        const errorEl = document.getElementById('dashboardError');
         const statTotal = document.getElementById('statTotal');
         const statCompleted = document.getElementById('statCompleted');
         const statAvg = document.getElementById('statAvg');
         dashboardList.innerHTML = '';
+
+        if (enrolled === null) {
+          errorEl.style.display = '';
+          empty.style.display = 'none';
+          statTotal.textContent = '—';
+          statCompleted.textContent = '—';
+          statAvg.textContent = '—';
+          return;
+        }
+        errorEl.style.display = 'none';
 
         if (!enrolled.length) {
           empty.style.display = '';
@@ -197,6 +228,8 @@
         await fetch(`${API_BASE}/enrollment/${encodeURIComponent(btn.dataset.title)}/progress`, { method: 'PATCH', headers: authHeaders() });
         renderDashboard();
       });
+
+      document.getElementById('dashboardRetryBtn')?.addEventListener('click', renderDashboard);
 
       renderDashboard();
     }
