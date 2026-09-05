@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose');
+require('./db'); // creates data.sqlite and tables on first run
 const authRoutes = require('./routes/auth');
 const cartRoutes = require('./routes/cart');
 const wishlistRoutes = require('./routes/wishlist');
@@ -25,15 +25,4 @@ app.use('/api/newsletter', newsletterRoutes);
 app.get('/api/health', (req, res) => res.json({ ok: true }));
 
 const PORT = process.env.PORT || 5000;
-
-// Routes that don't touch the DB (like the assistant) should work even if
-// MongoDB isn't configured yet, so the server starts regardless.
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-if (process.env.MONGODB_URI) {
-  mongoose.connect(process.env.MONGODB_URI).catch((err) => {
-    console.error('MongoDB connection failed:', err.message);
-  });
-} else {
-  console.warn('MONGODB_URI not set — auth/cart/wishlist/etc. will fail until it is configured.');
-}

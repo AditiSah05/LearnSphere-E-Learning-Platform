@@ -1,16 +1,16 @@
 const express = require('express');
-const Subscriber = require('../models/Subscriber');
+const db = require('../db');
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post('/', (req, res) => {
   const { email } = req.body;
   if (!email) return res.status(400).json({ message: 'email is required' });
 
-  const existing = await Subscriber.findOne({ email: email.toLowerCase() });
+  const existing = db.prepare('SELECT id FROM subscribers WHERE email = ?').get(email.toLowerCase());
   if (existing) return res.status(200).json({ message: 'Already subscribed' });
 
-  await Subscriber.create({ email });
+  db.prepare('INSERT INTO subscribers (email) VALUES (?)').run(email.toLowerCase());
   res.status(201).json({ message: 'Subscribed' });
 });
 
