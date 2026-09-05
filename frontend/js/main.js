@@ -286,8 +286,8 @@
 
     $(document).ready(function() {
         $('.course-item').on('click', function(e) {
-            if ($(e.target).closest('a').length) return;
-            
+            if ($(e.target).closest('a, button, .wishlist-btn').length) return;
+
             const imgSrc = $(this).find('img.img-fluid').attr('src');
             const data = courseData[imgSrc];
             
