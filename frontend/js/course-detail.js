@@ -25,6 +25,8 @@
   document.getElementById('sidebarDuration').textContent = course.duration;
   document.getElementById('sidebarLevel').textContent = course.level;
   document.getElementById('mobileEnrollPrice').textContent = course.price === 0 ? 'Free' : '₹ ' + course.price;
+  document.getElementById('miniHeaderTitle').textContent = course.title;
+  document.getElementById('miniHeaderPrice').textContent = course.price === 0 ? 'Free' : '₹ ' + course.price;
 
   function enroll(e) {
     e.preventDefault();
@@ -34,6 +36,15 @@
 
   document.getElementById('enrollNowBtn').addEventListener('click', enroll);
   document.getElementById('mobileEnrollBtn').addEventListener('click', enroll);
+  document.getElementById('miniHeaderEnrollBtn').addEventListener('click', enroll);
+
+  // Sticky mini-header: appears once the hero banner scrolls out of view
+  const miniHeader = document.getElementById('miniHeader');
+  const hero = document.querySelector('.page-header');
+  window.addEventListener('scroll', () => {
+    const past = hero ? window.scrollY > hero.offsetTop + hero.offsetHeight - 100 : window.scrollY > 300;
+    miniHeader.classList.toggle('show', past);
+  });
 
   const shareBtn = document.getElementById('shareCourseBtn');
   shareBtn.addEventListener('click', async (e) => {

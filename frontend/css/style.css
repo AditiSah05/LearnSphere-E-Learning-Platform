@@ -1047,6 +1047,31 @@ section[style*="banner-3"] {
 
 
 /* =========================================================
+   Sticky mini-header (single.html course title on scroll)
+   ========================================================= */
+
+.mini-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1015;
+    background: #fff;
+    box-shadow: 0 4px 16px rgba(24, 29, 56, .1);
+    transform: translateY(-100%);
+    transition: transform .3s ease;
+}
+
+.mini-header.show {
+    transform: translateY(76px);
+}
+
+.mini-header #miniHeaderEnrollBtn {
+    border-radius: 50px;
+}
+
+
+/* =========================================================
    Micro-animations: page fade-in, button ripple, skeleton loaders
    ========================================================= */
 
