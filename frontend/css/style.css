@@ -1024,6 +1024,29 @@ section[style*="banner-3"] {
 
 
 /* =========================================================
+   Password visibility toggle
+   ========================================================= */
+
+.pwd-field {
+    padding-right: 45px !important;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    cursor: pointer;
+    z-index: 5;
+}
+
+.toggle-password:hover {
+    color: var(--primary);
+}
+
+
+/* =========================================================
    Micro-animations: page fade-in, button ripple, skeleton loaders
    ========================================================= */
 

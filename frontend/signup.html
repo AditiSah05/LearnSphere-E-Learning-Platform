@@ -123,9 +123,10 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <div class="form-floating">
-                                    <input type="password" class="form-control" id="password" placeholder="Password" required minlength="6">
+                                <div class="form-floating position-relative">
+                                    <input type="password" class="form-control pwd-field" id="password" placeholder="Password" required minlength="6">
                                     <label for="password">Password</label>
+                                    <i class="fa fa-eye toggle-password" data-target="password" role="button" tabindex="0" aria-label="Show password"></i>
                                     <div class="invalid-feedback">Password must be at least 6 characters.</div>
                                 </div>
                                 <div class="password-strength mt-2" id="pwStrengthWrap" style="display:none;">
@@ -223,6 +224,7 @@
     <script src="js/form-validation.js"></script>
     <script src="js/password-strength.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/password-toggle.js"></script>
 </body>
 
 </html>
