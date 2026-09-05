@@ -174,14 +174,9 @@
           row.className = 'd-flex flex-wrap align-items-center gap-2 border-bottom py-3';
           row.innerHTML = `
             <img src="${course.img}" alt="" style="width:90px;height:60px;object-fit:cover;" class="rounded me-3">
+            <div class="progress-ring me-3" style="--progress:${course.progress};"><span>${course.progress}%</span></div>
             <div class="flex-grow-1" style="min-width:180px;">
-              <div class="d-flex justify-content-between">
-                <span>${course.title}</span>
-                <span class="fw-bold">${course.progress}%</span>
-              </div>
-              <div class="progress mt-1" style="height:8px;">
-                <div class="progress-bar" role="progressbar" style="width:${course.progress}%; background-color:#fb873f;"></div>
-              </div>
+              <span>${course.title}</span>
             </div>
             <a class="btn btn-sm btn-primary ms-3" href="learn.html?title=${encodeURIComponent(course.title)}">Continue Learning</a>
             <button class="btn btn-sm btn-outline-primary ms-2 mark-progress" data-title="${course.title}"

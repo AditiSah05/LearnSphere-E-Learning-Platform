@@ -1120,6 +1120,69 @@ body {
 
 
 /* =========================================================
+   Navbar user menu (logged-in state)
+   ========================================================= */
+
+.user-menu .nav-link {
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+}
+
+.user-menu .dropdown-item i {
+    color: var(--primary);
+    width: 16px;
+}
+
+
+/* =========================================================
+   Circular progress ring (dashboard course rows)
+   ========================================================= */
+
+.progress-ring {
+    --progress: 0;
+    flex: 0 0 auto;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: conic-gradient(var(--primary) calc(var(--progress) * 1%), #e9ecef 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.progress-ring::before {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.progress-ring span {
+    position: relative;
+    z-index: 1;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--dark);
+}
+
+
+/* =========================================================
    Course detail page
    ========================================================= */
 

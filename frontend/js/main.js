@@ -1,3 +1,39 @@
+// Auth-aware navbar: swap the login icon for a user menu when logged in
+(function () {
+    try {
+        var token = localStorage.getItem('token');
+        var user = JSON.parse(localStorage.getItem('user') || 'null');
+        if (!token || !user || !user.name) return;
+
+        document.querySelectorAll('a[href="login.html"].nav-item.nav-link').forEach(function (link) {
+            var initial = user.name.trim().charAt(0).toUpperCase();
+            var firstName = user.name.trim().split(' ')[0];
+            var wrapper = document.createElement('div');
+            wrapper.className = 'nav-item dropdown user-menu';
+            wrapper.innerHTML =
+                '<a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">' +
+                '<span class="user-avatar">' + initial + '</span>' +
+                '<span class="ms-2 d-none d-lg-inline">' + firstName + '</span>' +
+                '</a>' +
+                '<div class="dropdown-menu dropdown-menu-end fade-down m-0">' +
+                '<a class="dropdown-item" href="dashboard.html"><i class="fa fa-columns me-2"></i>Dashboard</a>' +
+                '<a class="dropdown-item" href="#" id="logoutBtn"><i class="fa fa-sign-out-alt me-2"></i>Logout</a>' +
+                '</div>';
+            link.replaceWith(wrapper);
+        });
+
+        document.addEventListener('click', function (e) {
+            if (e.target.closest('#logoutBtn')) {
+                e.preventDefault();
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                window.location.href = 'index.html';
+            }
+        });
+    } catch (e) {}
+})();
+
+
 (function ($) {
     "use strict";
 
