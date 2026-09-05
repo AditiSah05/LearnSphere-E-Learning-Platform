@@ -121,9 +121,35 @@
 
 
     // Newsletter form
-    $('#newsletterForm').on('submit', function(e) {
+    $('#newsletterForm').on('submit', async function (e) {
         e.preventDefault();
-        $(this).find('input[type="email"], input[type="text"]').val('');
+        const $form = $(this);
+        const $input = $form.find('input[type="email"], input[type="text"]');
+        const email = $input.val().trim();
+
+        let $msg = $form.next('.newsletter-feedback');
+        if (!$msg.length) {
+            $msg = $('<small class="newsletter-feedback d-block mt-2"></small>');
+            $form.after($msg);
+        }
+
+        if (!email) {
+            $msg.text('Please enter an email address.').css('color', '#dc3545');
+            return;
+        }
+
+        try {
+            const res = await fetch('http://localhost:5000/api/newsletter', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+            });
+            if (!res.ok) throw new Error('subscribe failed');
+            $msg.text("Subscribed! Thanks for joining.").css('color', '#28a745');
+            $input.val('');
+        } catch {
+            $msg.text("Couldn't subscribe right now. Please try again later.").css('color', '#dc3545');
+        }
     });
 
 
