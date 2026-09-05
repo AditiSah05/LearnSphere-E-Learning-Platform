@@ -303,7 +303,9 @@
                                 </div>
                             </div>
 
-                            <div id="reviewList" class="mb-4"></div>
+                            <div id="reviewList" class="mb-4">
+                                <div class="skeleton-row"><div class="skeleton skeleton-thumb" style="border-radius:50%;"></div><div class="skeleton skeleton-line"></div></div>
+                            </div>
 
                             <h5>Write a Review</h5>
                             <p class="mb-2 text-muted small">Use the star rating above to pick your score, then leave a comment.</p>
@@ -378,6 +380,14 @@
 </div>
 <!-- Course Detail End -->
 
+<!-- Sticky Mobile Enroll Bar -->
+<div class="mobile-enroll-bar d-lg-none">
+    <div>
+        <span class="text-muted small d-block">Price</span>
+        <strong id="mobileEnrollPrice">Free</strong>
+    </div>
+    <button type="button" id="mobileEnrollBtn" class="btn text-white px-4">Enroll Now</button>
+</div>
 
 <!-- Footer Start -->
 <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">

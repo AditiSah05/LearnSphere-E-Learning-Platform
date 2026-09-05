@@ -1024,6 +1024,102 @@ section[style*="banner-3"] {
 
 
 /* =========================================================
+   Micro-animations: page fade-in, button ripple, skeleton loaders
+   ========================================================= */
+
+body {
+    opacity: 0;
+    animation: page-fade-in .5s ease forwards;
+}
+
+@keyframes page-fade-in {
+    to { opacity: 1; }
+}
+
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .5);
+    transform: scale(0);
+    animation: ripple-expand .6s ease-out;
+    pointer-events: none;
+}
+
+@keyframes ripple-expand {
+    to {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
+
+.skeleton-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
+}
+
+.skeleton {
+    background: linear-gradient(90deg, #eee 25%, #f5f5f5 37%, #eee 63%);
+    background-size: 400% 100%;
+    animation: skeleton-shimmer 1.4s ease infinite;
+    border-radius: 6px;
+}
+
+@keyframes skeleton-shimmer {
+    0% { background-position: 100% 50%; }
+    100% { background-position: 0 50%; }
+}
+
+.skeleton-thumb {
+    flex: 0 0 auto;
+    width: 70px;
+    height: 50px;
+}
+
+.skeleton-line {
+    flex: 1 1 auto;
+    height: 16px;
+}
+
+
+/* =========================================================
+   Sticky mobile enroll bar (single.html)
+   ========================================================= */
+
+.mobile-enroll-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    background: #fff;
+    box-shadow: 0 -8px 24px rgba(24, 29, 56, .12);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.mobile-enroll-bar #mobileEnrollBtn {
+    flex: 0 0 auto;
+    border-radius: 50px;
+}
+
+@media (max-width: 991.98px) {
+    body:has(.mobile-enroll-bar) {
+        padding-bottom: 72px;
+    }
+}
+
+
+/* =========================================================
    Course detail page
    ========================================================= */
 

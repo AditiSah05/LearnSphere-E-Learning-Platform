@@ -24,13 +24,16 @@
   document.getElementById('sidebarPrice').textContent = course.price === 0 ? 'Free' : '₹ ' + course.price;
   document.getElementById('sidebarDuration').textContent = course.duration;
   document.getElementById('sidebarLevel').textContent = course.level;
+  document.getElementById('mobileEnrollPrice').textContent = course.price === 0 ? 'Free' : '₹ ' + course.price;
 
-  const enrollBtn = document.getElementById('enrollNowBtn');
-  enrollBtn.addEventListener('click', (e) => {
+  function enroll(e) {
     e.preventDefault();
     window.LSCart.addToCart({ title: course.title, price: course.price, img: course.img });
     window.location.href = 'cart.html';
-  });
+  }
+
+  document.getElementById('enrollNowBtn').addEventListener('click', enroll);
+  document.getElementById('mobileEnrollBtn').addEventListener('click', enroll);
 
   const shareBtn = document.getElementById('shareCourseBtn');
   shareBtn.addEventListener('click', async (e) => {
