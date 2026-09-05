@@ -1,3 +1,26 @@
+// Session expiry: if any authenticated request comes back 401, the token is
+// stale/expired — clear it and send the user back to login instead of
+// leaving the page silently broken (blank data, dead buttons).
+(function () {
+    const originalFetch = window.fetch;
+    window.fetch = function (input, init) {
+        const headers = (init && init.headers) || {};
+        const hasAuth = !!(headers.Authorization || headers['Authorization']);
+        return originalFetch(input, init).then((res) => {
+            if (hasAuth && res.status === 401 && localStorage.getItem('token')) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                if (!window.location.pathname.endsWith('login.html')) {
+                    if (typeof showToast === 'function') showToast('Session expired — please log in again.', 'info');
+                    setTimeout(() => (window.location.href = 'login.html'), 800);
+                }
+            }
+            return res;
+        });
+    };
+})();
+
+
 // Auth-aware navbar: swap the login icon for a user menu when logged in
 (function () {
     try {

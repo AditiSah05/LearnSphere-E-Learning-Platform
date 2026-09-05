@@ -9,6 +9,24 @@
     return;
   }
 
+  // Session expiry: a 401 here means the token is stale/expired, not that
+  // the server is down — send the user back to login instead of showing a
+  // misleading "couldn't reach server" message.
+  const originalFetch = window.fetch;
+  window.fetch = function (input, init) {
+    const headers = (init && init.headers) || {};
+    const hasAuth = !!(headers.Authorization || headers['Authorization']);
+    return originalFetch(input, init).then((res) => {
+      if (hasAuth && res.status === 401 && localStorage.getItem('token')) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        if (typeof showToast === 'function') showToast('Session expired — please log in again.', 'info');
+        setTimeout(() => (window.location.href = 'login.html'), 800);
+      }
+      return res;
+    });
+  };
+
   const params = new URLSearchParams(window.location.search);
   const title = params.get('title');
   const course = (typeof COURSES !== 'undefined' && COURSES.find((c) => c.title === title)) || (typeof COURSES !== 'undefined' ? COURSES[0] : null);
