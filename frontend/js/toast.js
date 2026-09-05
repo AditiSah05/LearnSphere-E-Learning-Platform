@@ -1,4 +1,5 @@
 function showToast(message, type) {
+  const MAX_TOASTS = 3;
   let container = document.getElementById('toastContainer');
   if (!container) {
     container = document.createElement('div');
@@ -6,6 +7,10 @@ function showToast(message, type) {
     container.className = 'toast-container position-fixed top-0 end-0 p-3';
     container.style.zIndex = 1080;
     document.body.appendChild(container);
+  }
+
+  while (container.children.length >= MAX_TOASTS) {
+    container.firstElementChild.remove();
   }
 
   const colors = { success: '#198754', error: '#dc3545', info: '#fb873f' };
