@@ -302,9 +302,23 @@
             $('#modalLearners').text(data.learners);
             $('#modalLevel').text(data.level);
             $('#modalDescription').text(data.description);
-            
+
+            $('#modalEnrollBtn').data({
+                title: data.title,
+                price: parseInt(String(data.price).replace(/[^\d]/g, ''), 10) || 0,
+                img: imgSrc,
+            });
+
             const courseModal = new bootstrap.Modal(document.getElementById('coursePreviewModal'));
             courseModal.show();
+        });
+
+        $('#modalEnrollBtn').on('click', async function (e) {
+            e.preventDefault();
+            if (!window.LSCart || !window.LSCart.requireLogin()) return;
+            const btn = $(this).data();
+            await window.LSCart.addToCart({ title: btn.title, price: btn.price, img: btn.img });
+            window.location.href = 'cart.html';
         });
     });
 

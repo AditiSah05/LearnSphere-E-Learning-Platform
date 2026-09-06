@@ -28,9 +28,10 @@
   document.getElementById('miniHeaderTitle').textContent = course.title;
   document.getElementById('miniHeaderPrice').textContent = course.price === 0 ? 'Free' : '₹ ' + course.price;
 
-  function enroll(e) {
+  async function enroll(e) {
     e.preventDefault();
-    window.LSCart.addToCart({ title: course.title, price: course.price, img: course.img });
+    if (!window.LSCart.requireLogin()) return;
+    await window.LSCart.addToCart({ title: course.title, price: course.price, img: course.img });
     window.location.href = 'cart.html';
   }
 
