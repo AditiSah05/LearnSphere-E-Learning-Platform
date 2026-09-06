@@ -5,13 +5,18 @@
   const cards = document.querySelectorAll('.course-card');
   const count = document.getElementById('courseCount');
   const noResults = document.getElementById('noCourseResults');
+  const loadMoreBtn = document.getElementById('loadMoreCourses');
   if (!search || !cards.length) return;
+
+  const PAGE_SIZE = 8;
+  let limit = PAGE_SIZE;
 
   function apply() {
     const q = search.value.trim().toLowerCase();
     const price = priceFilter.value;
     const level = levelFilter.value;
-    let visible = 0;
+    const filtering = !!q || price !== 'all' || level !== 'all';
+    let matched = 0;
 
     cards.forEach((card) => {
       const title = card.querySelector('h5').textContent.trim().toLowerCase();
@@ -21,25 +26,37 @@
       const matchesQuery = !q || title.includes(q);
       const matchesPrice = price === 'all' || badge === price;
       const matchesLevel = level === 'all' || levelText.includes(level);
-      const show = matchesQuery && matchesPrice && matchesLevel;
+      const matches = matchesQuery && matchesPrice && matchesLevel;
 
+      if (matches) matched++;
+      const show = matches && (filtering || matched <= limit);
       card.style.display = show ? '' : 'none';
-      if (show) visible++;
     });
 
-    count.textContent = `${visible} course${visible === 1 ? '' : 's'}`;
-    noResults.style.display = visible === 0 ? '' : 'none';
+    count.textContent = `${matched} course${matched === 1 ? '' : 's'}`;
+    noResults.style.display = matched === 0 ? '' : 'none';
+    if (loadMoreBtn) loadMoreBtn.style.display = !filtering && matched > limit ? '' : 'none';
   }
 
-  search.addEventListener('input', apply);
-  priceFilter.addEventListener('change', apply);
-  levelFilter.addEventListener('change', apply);
+  function resetAndApply() {
+    limit = PAGE_SIZE;
+    apply();
+  }
+
+  search.addEventListener('input', resetAndApply);
+  priceFilter.addEventListener('change', resetAndApply);
+  levelFilter.addEventListener('change', resetAndApply);
+
+  loadMoreBtn?.addEventListener('click', () => {
+    limit += PAGE_SIZE;
+    apply();
+  });
 
   document.getElementById('clearCourseFilters')?.addEventListener('click', () => {
     search.value = '';
     priceFilter.value = 'all';
     levelFilter.value = 'all';
-    apply();
+    resetAndApply();
   });
 
   apply();
