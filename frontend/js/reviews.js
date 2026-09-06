@@ -35,6 +35,27 @@
     });
   });
 
+  function renderBreakdown(reviews) {
+    const breakdown = document.getElementById('ratingBreakdown');
+    if (!breakdown) return;
+    const total = reviews.length;
+
+    breakdown.innerHTML = [5, 4, 3, 2, 1]
+      .map((star) => {
+        const count = reviews.filter((r) => Math.round(r.rating) === star).length;
+        const pct = total ? Math.round((count / total) * 100) : 0;
+        return `
+          <div class="d-flex align-items-center gap-2 mb-1">
+            <small class="text-nowrap" style="width:34px;">${star} <i class="bi bi-star-fill text-warning" style="font-size:10px;"></i></small>
+            <div class="progress flex-grow-1" style="height:8px;">
+              <div class="progress-bar bg-warning" style="width:${pct}%;"></div>
+            </div>
+            <small class="text-muted" style="width:36px;">${pct}%</small>
+          </div>`;
+      })
+      .join('');
+  }
+
   async function render() {
     const reviews = await getReviews();
     const list = document.getElementById('reviewList');
@@ -47,6 +68,7 @@
       avgEl.textContent = '0.0';
       avgStars.innerHTML = starsHTML(0);
       countEl.textContent = '0 reviews';
+      renderBreakdown([]);
       return;
     }
 
@@ -54,6 +76,7 @@
     avgEl.textContent = avg.toFixed(1);
     avgStars.innerHTML = starsHTML(Math.round(avg));
     countEl.textContent = `${reviews.length} review${reviews.length === 1 ? '' : 's'}`;
+    renderBreakdown(reviews);
 
     list.innerHTML = reviews
       .map((r) => `

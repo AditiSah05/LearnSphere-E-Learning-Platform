@@ -136,7 +136,9 @@
                                 </small>
                                 <small style="margin-left: 15px;"><i class="bi bi-person-fill"></i><span id="statLevel">Beginner</span></small>
                                 <small style="margin-left: 15px;"><i class="bi bi-clock-fill me-2"></i> <span id="statDuration">2.0 Hrs</span></small>
-
+                                <button type="button" id="shareCourseBtn" class="btn btn-sm btn-outline-secondary ms-3" style="border-radius:50px;">
+                                    <i class="bi bi-share-fill me-1"></i>Share
+                                </button>
                             </div>
                             <div class="image-div text-left mt-3">
                                 <img src="img/testimonial-2.jpg" alt=""
@@ -299,12 +301,15 @@
 
                         <div class="tab-pane fade container" id="Reviews" role="tabpanel">
                             <h2 class="mt-4">Reviews</h2>
-                            <div class="d-flex align-items-center mb-4">
-                                <h2 class="mb-0 me-3" id="reviewAverage">0.0</h2>
-                                <div>
-                                    <div id="reviewAverageStars" class="text-warning"></div>
-                                    <small class="text-muted" id="reviewCount">0 reviews</small>
+                            <div class="d-flex align-items-center flex-wrap gap-4 mb-4">
+                                <div class="d-flex align-items-center">
+                                    <h2 class="mb-0 me-3" id="reviewAverage">0.0</h2>
+                                    <div>
+                                        <div id="reviewAverageStars" class="text-warning"></div>
+                                        <small class="text-muted" id="reviewCount">0 reviews</small>
+                                    </div>
                                 </div>
+                                <div id="ratingBreakdown" style="min-width:220px;flex:1;max-width:320px;"></div>
                             </div>
 
                             <div id="reviewList" class="mb-4">
@@ -482,6 +487,7 @@
 <script src="js/recently-viewed.js"></script>
 <script src="js/cart.js"></script>
 <script src="js/course-detail.js"></script>
+<script src="js/share-course.js"></script>
 <script src="js/reviews.js"></script>
 </body>
 
