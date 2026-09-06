@@ -31,7 +31,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .course-preview-modal .modal-header {
-    background: linear-gradient(135deg, #fb873f, #f69050);
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
     color: white;
     border-bottom: none;
 }
@@ -65,7 +65,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .course-preview-modal .detail-label i {
-    color: var(--primary, #fb873f) !important;
+    color: var(--primary) !important;
 }
 
 .course-preview-modal .detail-value {
@@ -123,7 +123,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .course-preview-modal .btn-enroll-preview {
-    background-color: #fb873f;
+    background-color: var(--primary);
     border: none;
     padding: 8px 25px;
     border-radius: 25px;
@@ -133,7 +133,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .course-preview-modal .btn-enroll-preview:hover {
-    background-color: #e67a35;
+    background-color: var(--primary-dark);
     transform: translateY(-2px);
     color: white;
 }
@@ -156,7 +156,7 @@ h1, h2, h3, h4, h5, h6,
 }
 :root {
     --primary: #f69050;
-    --light: #F0FBFC;
+    --primary-dark: #d96f32;
     --light: #f0e4de;
     --dark: #181d38;
 
@@ -182,7 +182,7 @@ body {
 }
 
 .btn {
-    background-color: #fb873f;
+    background-color: var(--primary);
     border: none;
 }
 
@@ -341,11 +341,11 @@ body {
 }
 
 .navbar-toggler-icon {
-    color: #fb873f;
+    color: var(--primary);
 }
 
 .navbar-toggler {
-    border: 2px solid #fb873f;
+    border: 2px solid var(--primary);
 }
 
 @media (min-width: 992px) {
@@ -437,7 +437,7 @@ body {
 
 
 .text-accent {
-    color: #fb873f;
+    color: var(--primary);
 }
 
 /* Any shadowed card/panel gets rounded corners for consistency with the
@@ -1323,7 +1323,7 @@ section[style*="banner-3"] {
 }
 
 #exampleModal .modal-header {
-    background: linear-gradient(135deg, #fb873f, #f69050);
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
     color: #fff;
     border-bottom: none;
 }
@@ -1338,7 +1338,7 @@ section[style*="banner-3"] {
 }
 
 #exampleModal .btn[type="submit"] {
-    background-color: #fb873f;
+    background-color: var(--primary);
 }
 
 
