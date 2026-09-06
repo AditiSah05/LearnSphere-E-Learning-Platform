@@ -26,7 +26,7 @@ h1, h2, h3, h4, h5, h6,
 
 /* Course Preview Modal */
 .course-preview-modal .modal-content {
-    border-radius: 15px;
+    border-radius: var(--radius-md, 14px);
     overflow: hidden;
 }
 
@@ -50,7 +50,7 @@ h1, h2, h3, h4, h5, h6,
     align-items: center;
     margin-bottom: 12px;
     padding-bottom: 12px;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid var(--neutral-border, #eee);
 }
 
 .course-preview-modal .detail-row:last-child {
@@ -59,13 +59,17 @@ h1, h2, h3, h4, h5, h6,
 
 .course-preview-modal .detail-label {
     font-weight: 600;
-    color: #181d38;
+    color: var(--dark, #181d38);
     min-width: 120px;
     font-size: 0.95rem;
 }
 
+.course-preview-modal .detail-label i {
+    color: var(--primary, #fb873f) !important;
+}
+
 .course-preview-modal .detail-value {
-    color: #52565b;
+    color: var(--neutral-text-muted, #52565b);
     font-size: 0.95rem;
 }
 
@@ -100,7 +104,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .course-preview-modal .modal-footer {
-    border-top: 1px solid #f0f0f0;
+    border-top: 1px solid var(--neutral-border, #eee);
     padding: 15px 25px;
 }
 
