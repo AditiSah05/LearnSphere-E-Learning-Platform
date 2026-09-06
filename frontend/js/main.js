@@ -129,12 +129,55 @@
     });
 
 
-    // Newsletter form — Subscribe is a mailto link, not a submit button, so
-    // pressing Enter in the email field must do the same thing as clicking it.
+    // Newsletter form — saves the email server-side via /api/newsletter.
     $('#newsletterForm').on('submit', function (e) {
         e.preventDefault();
-        window.location.href = $(this).find('a[href^="mailto:"]').attr('href');
+        var $form = $(this);
+        var $input = $form.find('input[type="email"]');
+        var email = $input.val().trim();
+        if (!email) return;
+
+        fetch('http://localhost:5000/api/newsletter', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email }),
+        })
+            .then(function (res) {
+                return res.json().then(function (data) { return { ok: res.ok, data: data }; });
+            })
+            .then(function (result) {
+                newsletterToast(result.data.message || (result.ok ? 'Subscribed!' : 'Could not subscribe.'), result.ok ? 'success' : 'error');
+                if (result.ok) $input.val('');
+            })
+            .catch(function () {
+                newsletterToast("Couldn't reach the server. Please try again.", 'error');
+            });
     });
+
+    // Self-contained toast fallback so this works even on pages that don't
+    // load js/toast.js — reuses the global one where it's available.
+    function newsletterToast(message, type) {
+        if (typeof showToast === 'function') return showToast(message, type);
+        var container = document.getElementById('toastContainer');
+        if (!container) {
+            container = document.createElement('div');
+            container.id = 'toastContainer';
+            container.className = 'toast-container position-fixed top-0 end-0 p-3';
+            container.style.zIndex = 1080;
+            document.body.appendChild(container);
+        }
+        var colors = { success: '#198754', error: '#dc3545', info: '#fb873f' };
+        var toastEl = document.createElement('div');
+        toastEl.className = 'toast align-items-center text-white border-0';
+        toastEl.style.backgroundColor = colors[type] || colors.info;
+        toastEl.setAttribute('role', 'alert');
+        toastEl.innerHTML = '<div class="d-flex"><div class="toast-body">' + message + '</div>' +
+            '<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button></div>';
+        container.appendChild(toastEl);
+        var toast = new bootstrap.Toast(toastEl, { delay: 2500 });
+        toastEl.addEventListener('hidden.bs.toast', function () { toastEl.remove(); });
+        toast.show();
+    }
 
 
     // Testimonials carousel
