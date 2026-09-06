@@ -53,9 +53,11 @@
         grid.querySelectorAll('.course-card').forEach((card) => {
           const btn = card.querySelector('.wishlist-btn');
           const title = card.querySelector('h5').textContent.trim();
+          btn.setAttribute('aria-label', `Add ${title} to wishlist`);
           if (wishlist.some((c) => c.title === title)) {
             btn.classList.remove('bi-heart');
             btn.classList.add('bi-heart-fill');
+            btn.setAttribute('aria-label', `Remove ${title} from wishlist`);
           }
         });
       })();
@@ -73,6 +75,7 @@
         const saved = await toggleWishlist({ title, price, img });
         btn.classList.toggle('bi-heart-fill', saved);
         btn.classList.toggle('bi-heart', !saved);
+        btn.setAttribute('aria-label', saved ? `Remove ${title} from wishlist` : `Add ${title} to wishlist`);
       });
     }
 
@@ -105,7 +108,7 @@
           row.className = 'd-flex flex-wrap align-items-center justify-content-between gap-2 border-bottom py-3';
           row.innerHTML = `
             <div class="d-flex align-items-center">
-              <img src="${item.img}" alt="" style="width:70px;height:50px;object-fit:cover;" class="rounded me-3">
+              <img src="${item.img}" alt="${item.title}" style="width:70px;height:50px;object-fit:cover;" class="rounded me-3">
               <span>${item.title}</span>
             </div>
             <div class="d-flex flex-wrap align-items-center gap-2">

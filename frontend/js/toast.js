@@ -13,7 +13,7 @@ function showToast(message, type) {
     container.firstElementChild.remove();
   }
 
-  const colors = { success: '#198754', error: '#dc3545', info: '#fb873f' };
+  const colors = { success: '#198754', error: '#dc3545', info: '#b85c24' };
   const toastEl = document.createElement('div');
   toastEl.className = 'toast align-items-center text-white border-0';
   toastEl.style.backgroundColor = colors[type] || colors.info;

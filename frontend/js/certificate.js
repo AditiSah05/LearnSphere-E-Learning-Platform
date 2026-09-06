@@ -13,7 +13,7 @@ window.generateCertificate = function (courseTitle) {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   // Outer border
-  ctx.strokeStyle = '#fb873f';
+  ctx.strokeStyle = '#b85c24';
   ctx.lineWidth = 12;
   ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
 
@@ -25,7 +25,7 @@ window.generateCertificate = function (courseTitle) {
   ctx.textAlign = 'center';
 
   // Brand
-  ctx.fillStyle = '#fb873f';
+  ctx.fillStyle = '#b85c24';
   ctx.font = 'bold 32px Georgia, serif';
   ctx.fillText('LearnSphere', canvas.width / 2, 140);
 
@@ -39,7 +39,7 @@ window.generateCertificate = function (courseTitle) {
   ctx.fillText('This certifies that', canvas.width / 2, 300);
 
   // Name
-  ctx.fillStyle = '#fb873f';
+  ctx.fillStyle = '#b85c24';
   ctx.font = 'italic bold 44px Georgia, serif';
   ctx.fillText(learnerName, canvas.width / 2, 370);
 
@@ -60,7 +60,7 @@ window.generateCertificate = function (courseTitle) {
   // Seal
   ctx.beginPath();
   ctx.arc(canvas.width / 2, 670, 40, 0, Math.PI * 2);
-  ctx.fillStyle = '#fb873f';
+  ctx.fillStyle = '#b85c24';
   ctx.fill();
   ctx.fillStyle = '#fff';
   ctx.font = 'bold 36px Georgia, serif';

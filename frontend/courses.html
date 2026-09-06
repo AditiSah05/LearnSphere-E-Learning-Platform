@@ -108,7 +108,7 @@
                 <div class="col-lg-3 col-md-6 col-6  text-center">
                     <div class="content shadow p-3 mb-2 wow fadeInUp" data-wow-delay="0.3s">
 
-                        <img src="img/cat1.png" class="img-fluid" alt="categories"></i>
+                        <img src="img/cat1.png" class="img-fluid" alt="Microsoft Excel category">
 
                         <h5 class="my-2">
                             <a href="#" class="text-center">Microsoft Excel</a>
@@ -118,7 +118,7 @@
                 <div class="col-lg-3 col-md-6 col-6  text-center">
                     <div class="content shadow p-3 mb-2 wow fadeInUp" data-wow-delay="0.3s">
 
-                        <img src="img/cat2.png" class="img-fluid" alt="categories"></i>
+                        <img src="img/cat2.png" class="img-fluid" alt="AWS category">
 
                         <h5 class="my-2">
                             <a href="#" class="text-center"> AWS</a>
@@ -128,7 +128,7 @@
                 <div class="col-lg-3 col-md-6 col-6  text-center">
                     <div class="content shadow p-3 mb-2 wow fadeInUp" data-wow-delay="0.3s">
 
-                        <img src="img/cat3.png" class="img-fluid" alt="categories"></i>
+                        <img src="img/cat3.png" class="img-fluid" alt="Python category">
 
                         <h5 class="my-2">
                             <a href="#" class="text-center">Python</a>
@@ -138,7 +138,7 @@
                 <div class="col-lg-3 col-md-6 col-6  text-center">
                     <div class="content shadow p-3 mb-2 wow fadeInUp" data-wow-delay="0.3s">
 
-                        <img src="img/cat4.png" class="img-fluid" alt="categories"></i>
+                        <img src="img/cat4.png" class="img-fluid" alt="Java category">
 
                         <h5 class="my-2">
                             <a href="#" class="text-center">Java</a>
@@ -148,7 +148,7 @@
                 <div class="col-lg-3 col-md-6 col-6  text-center">
                     <div class="content shadow p-3 mb-2 wow fadeInUp" data-wow-delay="0.3s">
 
-                        <img src="img/cat5.png" class="img-fluid" alt="categories"></i>
+                        <img src="img/cat5.png" class="img-fluid" alt="Web Design category">
 
                         <h5 class="my-2">
                             <a href="#" class="text-center">Web Design</a>
@@ -158,7 +158,7 @@
                 <div class="col-lg-3 col-md-6 col-6  text-center">
                     <div class="content shadow p-3 mb-2 wow fadeInUp" data-wow-delay="0.3s">
 
-                        <img src="img/cat6.png" class="img-fluid" alt="categories"></i>
+                        <img src="img/cat6.png" class="img-fluid" alt="Web Development category">
 
                         <h5 class="my-2">
                             <a href="#" class="text-center">Web Development</a>
@@ -168,7 +168,7 @@
                 <div class="col-lg-3 col-md-6 col-6  text-center">
                     <div class="content shadow p-3 mb-2 wow fadeInUp" data-wow-delay="0.3s">
 
-                        <img src="img/cat7.png" class="img-fluid" alt="categories"></i>
+                        <img src="img/cat7.png" class="img-fluid" alt="MySQL category">
 
                         <h5 class="my-2">
                             <a href="#" class="text-center">MySQL</a>
@@ -178,7 +178,7 @@
                 <div class="col-lg-3 col-md-6 col-6  text-center">
                     <div class="content shadow p-3 mb-2 wow fadeInUp" data-wow-delay="0.3s">
 
-                        <img src="img/cat8.png" class="img-fluid" alt="categories"></i>
+                        <img src="img/cat8.png" class="img-fluid" alt="UI and UX Design category">
 
                         <h5 class="my-2">
                             <a href="#" class="text-center">UI/UX Design</a>
@@ -200,24 +200,33 @@
                 <h2 class="mb-5 text-accent">Explore new and trending free online courses</h2>
             </div>
             <div class="row g-3 mb-4 py-3 align-items-center course-filter-bar" style="position:sticky; top:75px; z-index:1015; background:#fff;">
-                <div class="col-md-5">
-                    <input type="text" id="courseSearch" class="form-control" placeholder="Search courses...">
+                <div class="col-md-4">
+                    <input type="text" id="courseSearch" class="form-control" placeholder="Search courses..." aria-label="Search courses">
                 </div>
-                <div class="col-md-3">
-                    <select id="priceFilter" class="form-select">
+                <div class="col-md-2">
+                    <select id="priceFilter" class="form-select" aria-label="Filter by price">
                         <option value="all">All Prices</option>
                         <option value="free">Free</option>
                         <option value="paid">Paid</option>
                     </select>
                 </div>
-                <div class="col-md-3">
-                    <select id="levelFilter" class="form-select">
+                <div class="col-md-2">
+                    <select id="levelFilter" class="form-select" aria-label="Filter by level">
                         <option value="all">All Levels</option>
                         <option value="beginner">Beginner</option>
                         <option value="intermediate">Intermediate</option>
                     </select>
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-2">
+                    <select id="courseSort" class="form-select" aria-label="Sort courses">
+                        <option value="recommended">Recommended</option>
+                        <option value="rating">Highest Rated</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="duration">Shortest Duration</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
                     <span id="courseCount" class="text-muted small"></span>
                 </div>
             </div>
@@ -230,7 +239,7 @@
                 <div class="col-lg-3 col-md-6 col-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
-                            <img class="img-fluid" src="img/course-1.jpg" alt="">
+                            <img class="img-fluid" src="img/course-1.jpg" alt="HTML Course for Beginners">
                             <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:50px; background-color:#fb873f;"
                                 class="px-2 py-1 fw-bold text-uppercase">FREE</div>
                             <button type="button" class="wishlist-btn bi bi-heart" style="position:absolute;top:12px;right:14px;background:rgba(255,255,255,0.85);border:none;border-radius:50%;width:32px;height:32px;color:#dc3545;font-size:15px;"></button>
@@ -261,7 +270,7 @@
                 <div class="col-lg-3 col-md-6 col-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
-                            <img class="img-fluid" src="img/course-2.jpg" alt="">
+                            <img class="img-fluid" src="img/course-2.jpg" alt="Front End Development CSS course">
                             <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:50px; background-color:#0ed44c;"
                                 class="px-2 py-1 fw-bold text-uppercase">PAID</div>
                             <button type="button" class="wishlist-btn bi bi-heart" style="position:absolute;top:12px;right:14px;background:rgba(255,255,255,0.85);border:none;border-radius:50%;width:32px;height:32px;color:#dc3545;font-size:15px;"></button>
@@ -293,7 +302,7 @@
                 <div class="col-lg-3 col-md-6 col-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
-                            <img class="img-fluid" src="img/course-3.jpg" alt="">
+                            <img class="img-fluid" src="img/course-3.jpg" alt="Introduction to JavaScript course">
                             <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:50px; background-color:#fb873f;"
                                 class="px-2 py-1 fw-bold text-uppercase">FREE</div>
                             <button type="button" class="wishlist-btn bi bi-heart" style="position:absolute;top:12px;right:14px;background:rgba(255,255,255,0.85);border:none;border-radius:50%;width:32px;height:32px;color:#dc3545;font-size:15px;"></button>
@@ -325,7 +334,7 @@
                 <div class="col-lg-3 col-md-6 col-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
-                            <img class="img-fluid" src="img/course-4.jpg" alt="">
+                            <img class="img-fluid" src="img/course-4.jpg" alt="Python Programming course">
                             <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:50px; background-color:#0ed44c;"
                                 class="px-2 py-1 fw-bold text-uppercase">PAID</div>
                             <button type="button" class="wishlist-btn bi bi-heart" style="position:absolute;top:12px;right:14px;background:rgba(255,255,255,0.85);border:none;border-radius:50%;width:32px;height:32px;color:#dc3545;font-size:15px;"></button>
@@ -357,7 +366,7 @@
                 <div class="col-lg-3 col-md-6 col-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
-                            <img class="img-fluid" src="img/course-5.jpg" alt="">
+                            <img class="img-fluid" src="img/course-5.jpg" alt="SQL for Data Science course">
                             <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:50px; background-color:#fb873f;"
                                 class="px-2 py-1 fw-bold text-uppercase">FREE</div>
                             <button type="button" class="wishlist-btn bi bi-heart" style="position:absolute;top:12px;right:14px;background:rgba(255,255,255,0.85);border:none;border-radius:50%;width:32px;height:32px;color:#dc3545;font-size:15px;"></button>
@@ -389,7 +398,7 @@
                 <div class="col-lg-3 col-md-6 col-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
-                            <img class="img-fluid" src="img/course-6.jpg" alt="">
+                            <img class="img-fluid" src="img/course-6.jpg" alt="ChatGPT for Beginners course">
                             <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:50px; background-color:#fb873f;"
                                 class="px-2 py-1 fw-bold text-uppercase">FREE</div>
                             <button type="button" class="wishlist-btn bi bi-heart" style="position:absolute;top:12px;right:14px;background:rgba(255,255,255,0.85);border:none;border-radius:50%;width:32px;height:32px;color:#dc3545;font-size:15px;"></button>
@@ -421,7 +430,7 @@
                 <div class="col-lg-3 col-md-6 col-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
-                            <img class="img-fluid" src="img/course-7.jpg" alt="">
+                            <img class="img-fluid" src="img/course-7.jpg" alt="AWS for Beginners course">
                             <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:50px; background-color:#fb873f;"
                                 class="px-2 py-1 fw-bold text-uppercase">FREE</div>
                             <button type="button" class="wishlist-btn bi bi-heart" style="position:absolute;top:12px;right:14px;background:rgba(255,255,255,0.85);border:none;border-radius:50%;width:32px;height:32px;color:#dc3545;font-size:15px;"></button>
@@ -453,7 +462,7 @@
                 <div class="col-lg-3 col-md-6 col-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
-                            <img class="img-fluid" src="img/course-8.jpg" alt="">
+                            <img class="img-fluid" src="img/course-8.jpg" alt="Microsoft Azure Essentials course">
                             <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:50px; background-color:#0ed44c;"
                                 class="px-2 py-1 fw-bold text-uppercase">PAID</div>
                             <button type="button" class="wishlist-btn bi bi-heart" style="position:absolute;top:12px;right:14px;background:rgba(255,255,255,0.85);border:none;border-radius:50%;width:32px;height:32px;color:#dc3545;font-size:15px;"></button>
@@ -485,7 +494,7 @@
                 <div class="col-lg-3 col-md-6 col-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
-                            <img class="img-fluid" src="img/course-9.jpg" alt="">
+                            <img class="img-fluid" src="img/course-9.jpg" alt="Introduction to MS Excel course">
                             <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:50px; background-color:#fb873f;"
                                 class="px-2 py-1 fw-bold text-uppercase">FREE</div>
                             <button type="button" class="wishlist-btn bi bi-heart" style="position:absolute;top:12px;right:14px;background:rgba(255,255,255,0.85);border:none;border-radius:50%;width:32px;height:32px;color:#dc3545;font-size:15px;"></button>
@@ -516,7 +525,7 @@
                 <div class="col-lg-3 col-md-6 col-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
-                            <img class="img-fluid" src="img/course-10.jpg" alt="">
+                            <img class="img-fluid" src="img/course-10.jpg" alt="Statistics for Data Science course">
                             <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:50px; background-color:#0ed44c;"
                                 class="px-2 py-1 fw-bold text-uppercase">PAID</div>
                             <button type="button" class="wishlist-btn bi bi-heart" style="position:absolute;top:12px;right:14px;background:rgba(255,255,255,0.85);border:none;border-radius:50%;width:32px;height:32px;color:#dc3545;font-size:15px;"></button>
@@ -548,7 +557,7 @@
                 <div class="col-lg-3 col-md-6 col-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
-                            <img class="img-fluid" src="img/course-11.jpg" alt="">
+                            <img class="img-fluid" src="img/course-11.jpg" alt="Java Programming course">
                             <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:50px; background-color:#fb873f;"
                                 class="px-2 py-1 fw-bold text-uppercase">FREE</div>
                             <button type="button" class="wishlist-btn bi bi-heart" style="position:absolute;top:12px;right:14px;background:rgba(255,255,255,0.85);border:none;border-radius:50%;width:32px;height:32px;color:#dc3545;font-size:15px;"></button>
@@ -580,7 +589,7 @@
                 <div class="col-lg-3 col-md-6 col-6 wow fadeInUp course-card" data-wow-delay="0.1s">
                     <div class="course-item shadow">
                         <div class="position-relative overflow-hidden text-light image">
-                            <img class="img-fluid" src="img/course-12.png" alt="">
+                            <img class="img-fluid" src="img/course-12.png" alt="C for Beginners course">
                             <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:50px; background-color:#fb873f;"
                                 class="px-2 py-1 fw-bold text-uppercase">FREE</div>
                             <button type="button" class="wishlist-btn bi bi-heart" style="position:absolute;top:12px;right:14px;background:rgba(255,255,255,0.85);border:none;border-radius:50%;width:32px;height:32px;color:#dc3545;font-size:15px;"></button>

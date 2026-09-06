@@ -96,7 +96,7 @@
       const done = currentProgress > unlockedAt;
       const active = i === currentIndex;
       return `
-        <li class="player-lecture-item ${active ? 'active' : ''} ${done ? 'done' : ''}" data-index="${i}">
+        <li class="player-lecture-item ${active ? 'active' : ''} ${done ? 'done' : ''}" data-index="${i}" tabindex="0" role="button" aria-current="${active ? 'true' : 'false'}">
           <span class="lecture-status">${done ? '<i class="bi bi-check-circle-fill"></i>' : (i + 1)}</span>
           <span class="lecture-name">${lec.name}</span>
         </li>`;
@@ -124,6 +124,14 @@
   listEl.addEventListener('click', (e) => {
     const item = e.target.closest('.player-lecture-item');
     if (!item) return;
+    currentIndex = Number(item.dataset.index);
+    render();
+  });
+
+  listEl.addEventListener('keydown', (e) => {
+    const item = e.target.closest('.player-lecture-item');
+    if (!item || (e.key !== 'Enter' && e.key !== ' ')) return;
+    e.preventDefault();
     currentIndex = Number(item.dataset.index);
     render();
   });

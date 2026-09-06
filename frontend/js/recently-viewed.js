@@ -25,7 +25,7 @@
       .map(
         (c) => `
       <a href="single.html?id=${c.id}" class="text-decoration-none text-dark flex-shrink-0" style="width:160px;">
-        <img src="${c.img}" alt="" style="width:100%;height:90px;object-fit:cover;" class="rounded mb-1">
+        <img src="${c.img}" alt="${c.title}" style="width:100%;height:90px;object-fit:cover;" class="rounded mb-1">
         <div class="small">${c.title}</div>
       </a>`
       )

@@ -39,6 +39,7 @@
                 '<span class="ms-2 d-none d-lg-inline">' + firstName + '</span>' +
                 '</a>' +
                 '<div class="dropdown-menu dropdown-menu-end fade-down m-0">' +
+                '<a class="dropdown-item" href="profile.html"><i class="bi bi-person-gear me-2"></i>Profile Settings</a>' +
                 '<a class="dropdown-item" href="dashboard.html"><i class="bi bi-grid-1x2-fill me-2"></i>Dashboard</a>' +
                 '<a class="dropdown-item" href="#" id="logoutBtn"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>' +
                 '</div>';
@@ -166,7 +167,7 @@
             container.style.zIndex = 1080;
             document.body.appendChild(container);
         }
-        var colors = { success: '#198754', error: '#dc3545', info: '#fb873f' };
+        var colors = { success: '#198754', error: '#dc3545', info: '#b85c24' };
         var toastEl = document.createElement('div');
         toastEl.className = 'toast align-items-center text-white border-0';
         toastEl.style.backgroundColor = colors[type] || colors.info;

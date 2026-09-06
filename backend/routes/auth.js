@@ -63,6 +63,26 @@ router.get('/me', requireAuth, (req, res) => {
   res.json({ user });
 });
 
+router.patch('/me', requireAuth, async (req, res) => {
+  const { name, currentPassword, newPassword } = req.body;
+  const user = db.prepare('SELECT * FROM users WHERE id = ?').get(req.userId);
+  if (!user) return res.status(404).json({ message: 'User not found' });
+  if (!name || !name.trim()) return res.status(400).json({ message: 'Name is required' });
+
+  if (newPassword) {
+    if (!currentPassword) return res.status(400).json({ message: 'Current password is required' });
+    if (newPassword.length < 6) return res.status(400).json({ message: 'New password must be at least 6 characters' });
+    if (!(await bcrypt.compare(currentPassword, user.password))) {
+      return res.status(401).json({ message: 'Current password is incorrect' });
+    }
+  }
+
+  const password = newPassword ? await bcrypt.hash(newPassword, 10) : user.password;
+  db.prepare('UPDATE users SET name = ?, password = ? WHERE id = ?').run(name.trim(), password, req.userId);
+  const updated = db.prepare('SELECT id, name, email FROM users WHERE id = ?').get(req.userId);
+  res.json({ user: updated });
+});
+
 router.post('/forgot-password', async (req, res) => {
   const { email } = req.body;
   if (!email) return res.status(400).json({ message: 'email is required' });

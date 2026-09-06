@@ -156,7 +156,7 @@ h1, h2, h3, h4, h5, h6,
 }
 :root {
     --primary: #f69050;
-    --primary-dark: #d96f32;
+    --primary-dark: #b85c24;
     --light: #f0e4de;
     --dark: #181d38;
 
@@ -173,8 +173,68 @@ body {
     background-color: var(--neutral-bg);
 }
 
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 3px;
+}
+
+@media (max-width: 576px) {
+    .navbar-nav > a[href="about.html"],
+    .navbar-nav > a[href="testimonial.html"],
+    .navbar-nav > a[href="contact.html"],
+    .navbar-nav > a[href="wishlist.html"],
+    .navbar-nav > a:has(#google_translate_element) {
+        display: none;
+    }
+
+    .course-filter-bar {
+        position: static !important;
+        padding: 0.75rem 0;
+    }
+
+    .wishlist-btn {
+        width: 44px !important;
+        height: 44px !important;
+    }
+
+    .btn {
+        min-height: 44px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
 .text-muted {
     color: var(--neutral-text-muted) !important;
+}
+
+.empty-state-icon {
+    color: var(--primary-dark);
+    font-size: 48px;
+}
+
+.empty-state-title {
+    color: var(--dark);
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.empty-state-copy {
+    color: var(--neutral-text-muted);
+    margin-bottom: 20px;
 }
 
 .bg-light {
@@ -182,7 +242,7 @@ body {
 }
 
 .btn {
-    background-color: var(--primary);
+    background-color: var(--primary-dark);
     border: none;
 }
 
@@ -193,12 +253,12 @@ body {
 
 .btn:hover {
     background: transparent;
-    color: var(--primary) !important;
-    border: 1px solid var(--primary);
+    color: var(--primary-dark) !important;
+    border: 1px solid var(--primary-dark);
 }
 
 .btn:hover a {
-    color: var(--primary) !important;
+    color: var(--primary-dark) !important;
 }
 
 .btn-light {
@@ -437,7 +497,7 @@ body {
 
 
 .text-accent {
-    color: var(--primary);
+    color: var(--primary-dark);
 }
 
 /* Any shadowed card/panel gets rounded corners for consistency with the
@@ -961,7 +1021,11 @@ body {
 
 .btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(251, 135, 63, .25);
+    box-shadow: 0 10px 20px rgba(184, 92, 36, .25);
+}
+
+.course-item .image > div {
+    background-color: var(--primary-dark) !important;
 }
 
 /* Navbar: glass effect once scrolled by main.js sticky logic */

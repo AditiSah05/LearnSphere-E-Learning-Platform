@@ -2,6 +2,8 @@
   const search = document.getElementById('courseSearch');
   const priceFilter = document.getElementById('priceFilter');
   const levelFilter = document.getElementById('levelFilter');
+  const sortFilter = document.getElementById('courseSort');
+  const grid = document.getElementById('courseGrid');
   const cards = document.querySelectorAll('.course-card');
   const count = document.getElementById('courseCount');
   const noResults = document.getElementById('noCourseResults');
@@ -10,8 +12,27 @@
 
   const PAGE_SIZE = 8;
   let limit = PAGE_SIZE;
+  const originalOrder = [...cards];
+
+  function numberFromCard(card, selector) {
+    const text = card.querySelector(selector)?.closest('small')?.textContent || '';
+    return parseFloat(text.replace(/[^\d.]/g, '')) || 0;
+  }
+
+  function sortCards() {
+    const sort = sortFilter?.value || 'recommended';
+    const ordered = [...cards].sort((a, b) => {
+      if (sort === 'recommended') return originalOrder.indexOf(a) - originalOrder.indexOf(b);
+      if (sort === 'rating') return numberFromCard(b, '.bi-star-fill') - numberFromCard(a, '.bi-star-fill');
+      if (sort === 'price-low') return numberFromCard(a, '.fw-bold.fs-6.text-center') - numberFromCard(b, '.fw-bold.fs-6.text-center');
+      if (sort === 'price-high') return numberFromCard(b, '.fw-bold.fs-6.text-center') - numberFromCard(a, '.fw-bold.fs-6.text-center');
+      return numberFromCard(a, '.bi-clock-fill') - numberFromCard(b, '.bi-clock-fill');
+    });
+    grid.append(...ordered);
+  }
 
   function apply() {
+    sortCards();
     const q = search.value.trim().toLowerCase();
     const price = priceFilter.value;
     const level = levelFilter.value;
@@ -46,6 +67,7 @@
   search.addEventListener('input', resetAndApply);
   priceFilter.addEventListener('change', resetAndApply);
   levelFilter.addEventListener('change', resetAndApply);
+  sortFilter?.addEventListener('change', resetAndApply);
 
   loadMoreBtn?.addEventListener('click', () => {
     limit += PAGE_SIZE;
@@ -56,6 +78,7 @@
     search.value = '';
     priceFilter.value = 'all';
     levelFilter.value = 'all';
+    if (sortFilter) sortFilter.value = 'recommended';
     resetAndApply();
   });
 

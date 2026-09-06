@@ -102,7 +102,7 @@
           row.className = 'd-flex flex-wrap align-items-center justify-content-between gap-2 border-bottom py-3';
           row.innerHTML = `
             <div class="d-flex align-items-center">
-              <img src="${item.img}" alt="" style="width:70px;height:50px;object-fit:cover;" class="rounded me-3">
+              <img src="${item.img}" alt="${item.title}" style="width:70px;height:50px;object-fit:cover;" class="rounded me-3">
               <span>${item.title}</span>
             </div>
             <div class="d-flex flex-wrap align-items-center gap-2">
@@ -227,7 +227,7 @@
           const row = document.createElement('div');
           row.className = 'd-flex flex-wrap align-items-center gap-2 border-bottom py-3';
           row.innerHTML = `
-            <img src="${course.img}" alt="" style="width:90px;height:60px;object-fit:cover;" class="rounded me-3">
+            <img src="${course.img}" alt="${course.title}" style="width:90px;height:60px;object-fit:cover;" class="rounded me-3">
             <div class="progress-ring me-3" style="--progress:${course.progress};"><span>${course.progress}%</span></div>
             <div class="flex-grow-1" style="min-width:180px;">
               <span>${course.title}</span>
