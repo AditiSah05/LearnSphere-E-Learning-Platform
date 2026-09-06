@@ -134,8 +134,14 @@
 
       (async () => {
         const cart = await getCart();
-        if (!cart || !cart.length) {
-          window.location.href = 'cart.html';
+        if (cart === null) {
+          showToast("Couldn't reach the server — check your connection.", 'error');
+          setTimeout(() => (window.location.href = 'cart.html'), 1200);
+          return;
+        }
+        if (!cart.length) {
+          showToast('Your cart is empty — add a course before checking out.', 'info');
+          setTimeout(() => (window.location.href = 'cart.html'), 1200);
           return;
         }
         checkoutSummary.innerHTML = cart
