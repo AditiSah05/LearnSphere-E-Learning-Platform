@@ -1107,7 +1107,9 @@ section[style*="banner-3"] {
     transition: .3s ease;
 }
 
-#dashboardList > div:hover {
+#dashboardList > div:hover,
+#cartList > div:hover,
+#wishlistList > div:hover {
     background: #f3f3f3;
 }
 
