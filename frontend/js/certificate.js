@@ -66,11 +66,47 @@ window.generateCertificate = function (courseTitle) {
   ctx.font = 'bold 36px Georgia, serif';
   ctx.fillText('✓', canvas.width / 2, 683);
 
-  const link = document.createElement('a');
-  link.download = `LearnSphere-Certificate-${courseTitle.replace(/\s+/g, '-')}.png`;
-  link.href = canvas.toDataURL('image/png');
-  link.click();
+  showCertificatePreview(canvas, courseTitle);
 };
+
+function showCertificatePreview(canvas, courseTitle) {
+  let modalEl = document.getElementById('certificatePreviewModal');
+  if (!modalEl) {
+    modalEl = document.createElement('div');
+    modalEl.className = 'modal fade';
+    modalEl.id = 'certificatePreviewModal';
+    modalEl.tabIndex = -1;
+    modalEl.setAttribute('aria-hidden', 'true');
+    modalEl.innerHTML = `
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Your Certificate</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-center">
+            <img id="certificatePreviewImg" class="img-fluid border" alt="Certificate preview">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn text-light" id="certificateDownloadBtn">Download</button>
+          </div>
+        </div>
+      </div>`;
+    document.body.appendChild(modalEl);
+  }
+
+  const dataUrl = canvas.toDataURL('image/png');
+  modalEl.querySelector('#certificatePreviewImg').src = dataUrl;
+  modalEl.querySelector('#certificateDownloadBtn').onclick = () => {
+    const link = document.createElement('a');
+    link.download = `LearnSphere-Certificate-${courseTitle.replace(/\s+/g, '-')}.png`;
+    link.href = dataUrl;
+    link.click();
+  };
+
+  new bootstrap.Modal(modalEl).show();
+}
 
 function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
   const words = text.split(' ');
