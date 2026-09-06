@@ -1,6 +1,6 @@
 # LearnSphere : Online Courses
 
-Full-stack e-learning platform: multi-page HTML/CSS/JS frontend + Express/MongoDB backend. Course browsing, cart/wishlist/enrollment, a lecture player, reviews, and JWT auth — all backed by real API endpoints, not just `localStorage`.
+Full-stack e-learning platform: multi-page HTML/CSS/JS frontend + Express/SQLite backend. Course browsing, cart/wishlist/enrollment, a lecture player, reviews, and JWT auth — all backed by real API endpoints, not just `localStorage`. No external database account or install needed — SQLite runs embedded.
 
 ## Features
 
@@ -11,8 +11,11 @@ Full-stack e-learning platform: multi-page HTML/CSS/JS frontend + Express/MongoD
 
 **Courses & learning**
 - Course browsing with search, price and level filters, and a "Clear filters" empty state (`course-filter.js`)
+- Course cards show title + rating/price up front only, in one compact stats row (learners, level, duration) below — not six competing data points crammed onto one card
+- "Enrolled" ribbon + "Continue Learning" swap on courses a logged-in user already owns (`enrolled-badge.js`)
 - Course detail page (`course-detail.js`) — tabbed Overview/Curriculum/Instructor/Reviews, sticky mini-header on scroll, sticky mobile "Enroll Now" bar
 - Full-screen lecture player (`learn.html`, `player.js`) — 4-part curriculum shell, progress tracked server-side, certificate on completion
+- "Continue where you left off" banner on the homepage for logged-in users with an in-progress course (`continue-learning.js`)
 - Recently viewed courses, shown on both `courses.html` and `index.html` (`recently-viewed.js`)
 - Downloadable completion certificate generated on a `<canvas>` (`certificate.js`)
 
@@ -30,9 +33,12 @@ Full-stack e-learning platform: multi-page HTML/CSS/JS frontend + Express/MongoD
 - Student dashboard: gradient hero, personalized greeting, stat cards, per-course progress rings, "Continue Learning" into the player
 - Instructor page: apply-as-instructor marketing page with a working validated modal form
 
-**Site-wide**
+**Design**
+- Consistent visual language across every page: a warm neutral palette (not stark white), Space Grotesk + Inter typography, rounded cards on one shared shadow/radius system, a "flanked-line eyebrow + accent heading" pattern used above every page's main content (`about.html`, `contact.html`, `login.html`, `signup.html`, `cart.html`, `wishlist.html`, `testimonial.html`, `dashboard.html`, and the homepage FAQ section)
+- Bootstrap Icons throughout (replaced Font Awesome) for a less generic-template look
+- Static hero on the homepage instead of an auto-rotating carousel
 - Custom branded `404.html`
-- Responsive down to 375px — 2-column course/category grids on mobile, fixed sticky footer button overlap, player top bar reflow
+- Responsive down to 375px — 2-column course/category grids on mobile, sticky mobile "Enroll Now" bar, player top bar reflow
 - Page fade-in, button ripple, and other small transitions
 
 ## Pages
@@ -55,19 +61,19 @@ Full-stack e-learning platform: multi-page HTML/CSS/JS frontend + Express/MongoD
   - `js/` — page logic (cart, wishlist, course filter/detail, player, reviews, auth, toast, etc.)
   - `lib/` — third-party libs (owlcarousel, wow, animate, easing, waypoints)
   - `img/` — images/icons
-- `backend/` — Express + MongoDB API
+- `backend/` — Express + SQLite API
 
 ## Stack
 
 Frontend: plain HTML, CSS, vanilla JS, Bootstrap. No build step.
-Backend: Node.js + Express + MongoDB (Mongoose), JWT auth.
+Backend: Node.js + Express + SQLite (`better-sqlite3`), JWT auth.
 
 ## Backend (`backend/`)
 
-Express + MongoDB API. Auth, cart, wishlist, enrollment and posting reviews are JWT-protected; reading reviews, contact, and newsletter signup are public. The server starts even without `MONGODB_URI` set — routes that don't touch the DB still work, DB-dependent ones fail gracefully.
+Express + SQLite API. Auth, cart, wishlist, enrollment and posting reviews are JWT-protected; reading reviews, contact, and newsletter signup are public. No external database account or service needed — `db.js` creates `backend/data.sqlite` and all tables automatically on first run.
 
 - `server.js` — Express app entry
-- `models/` — `User`, `Cart`, `Wishlist`, `Enrollment`, `Review`, `ContactMessage`, `Subscriber`
+- `db.js` — opens/creates `data.sqlite`, defines the schema (`users`, `carts`, `wishlists`, `enrollments`, `reviews`, `contact_messages`, `subscribers`)
 - `middleware/auth.js` — JWT verification, sets `req.userId`
 - `routes/auth.js` — `POST /api/auth/signup`, `POST /api/auth/login`, `GET /api/auth/me`
 - `routes/cart.js` — `GET/POST /api/cart`, `DELETE /api/cart/:title`, `POST /api/cart/checkout` (moves cart items into enrollments)
@@ -77,16 +83,18 @@ Express + MongoDB API. Auth, cart, wishlist, enrollment and posting reviews are 
 - `routes/contact.js` — `POST /api/contact` (public, stores the message)
 - `routes/newsletter.js` — `POST /api/newsletter` (public, dedupes by email) — currently unused by the frontend (Subscribe is a `mailto:` link instead), kept for future use
 
+Cart and wishlist items are stored as a JSON column per user rather than a separate child table — simpler, and fine at this scale since nothing ever queries into individual cart items.
+
 ### Setup
 
 ```bash
 cd backend
 npm install
-cp .env.example .env   # set MONGODB_URI and JWT_SECRET
+cp .env.example .env   # set JWT_SECRET (PORT is optional)
 npm start
 ```
 
-Runs on `http://localhost:5000`. Auth/cart/wishlist/enrollment/reviews/contact need a MongoDB instance (local or Atlas) — set `MONGODB_URI` in `.env`.
+Runs on `http://localhost:5000`. That's it — no database server to install or account to create. `data.sqlite` is created next to `server.js` on first run and is gitignored.
 
 ## Run locally
 
@@ -97,7 +105,7 @@ cd frontend
 python3 -m http.server 8080
 ```
 
-Open `http://localhost:8080/index.html`. Auth, cart, wishlist, dashboard, reviews, and contact all call the backend at `http://localhost:5000`, so start the backend too for those to work — otherwise they show a "couldn't reach the server" state with a Retry button.
+Open `http://localhost:8080/index.html`. Auth, cart, wishlist, dashboard, reviews, and contact all call the backend at `http://localhost:5000`, so start the backend too for those to work — otherwise they show a "couldn't reach the server" state with a Retry button. With the backend running, everything works immediately — no separate database setup required.
 
 ### 404 page
 
